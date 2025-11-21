@@ -20,11 +20,8 @@ public class Utility
         Write("Enter your choice: ");
 
         string? choice = ReadLine().Trim() ?? "";
-
-
-        WriteLine("displaying menu choice validation: " + ValidateInput(choice, "menu"));
-
-        WriteLine("------------------------");
+        //WriteLine("displaying menu choice validation: " + ValidateInput(choice, "menu"));
+        //WriteLine("------------------------");
         return choice;
     }
 
