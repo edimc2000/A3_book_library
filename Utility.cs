@@ -66,4 +66,13 @@ public class Utility
         string? choice = ReadLine().Trim() ?? "";
         return choice;
     }
+
+
+
+    public static void DisplayErrorOperation()
+    {
+        WriteLine("This operation is not supported, please try again.");
+    }
+
+
 }

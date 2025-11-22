@@ -40,7 +40,7 @@ internal class Program
                     break;
 
                 default:
-                    WriteLine("This operation is not supported, please try again.");
+                    DisplayErrorOperation();
                     break;
             }
         }

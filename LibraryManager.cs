@@ -51,7 +51,7 @@ internal class LibraryManager
                     break;
 
                 default:
-                    WriteLine("(1) This operation is not supported, please try again.");
+                    DisplayErrorOperation();
                     break;
             }
         }
@@ -75,7 +75,7 @@ internal class LibraryManager
                     break;
 
                 default:
-                    WriteLine("(65) This operation is not supported, please try again.");
+                    DisplayErrorOperation();
                     break;
             }
         }
