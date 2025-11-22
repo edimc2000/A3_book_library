@@ -49,6 +49,7 @@ public class Utility
 
             case "title":
                 Write("Enter the title of the book\t: ");
+
                 break;
 
             default:
