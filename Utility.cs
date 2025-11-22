@@ -1,44 +1,87 @@
 ﻿using Microsoft.VisualBasic;
+using System.Diagnostics.Metrics;
 
 namespace Library;
 
 public class Utility
 {
-    public static string DisplayMenu()
+    public static void DisplayMainMenu(string menuType)
     {
-        WriteLine("Menu");
-        WriteLine("");
-        WriteLine("Choose from the following");
-        WriteLine("");
-        WriteLine("Type (1) - to Add a new book");
-        WriteLine("Type (2) - to Find a book");
-        WriteLine("Type (3) - to Borrow");
-        WriteLine("Type (4) - to Return");
-        WriteLine("");
-        WriteLine("Type (0) - to Exit");
+        switch (menuType)
+        {
+            case "Main Menu":
+                WriteLine(string.Format("{0}\n{1}\n\n{2}\n{3}\n{4}\n{5}\n\n{6}",
+                    "Menu",
+                    "Choose from the following",
+                    "Type\t(1) - to Add a new book",
+                    "\t(2) - to Find a book",
+                    "\t(3) - to Borrow",
+                    "\t(4) - to Return",
+                    "\t(0) - to Exit\n"
+                ));
+                break;
 
-        Write("Enter your choice: ");
+            case "Book Type":
+                WriteLine(string.Format("{0}\n{1}\n\n{2}\n{3}\n{4}\n\n{5}",
+                    "Book Type",
+                    "Choose from the following Book Type ",
+                    "Type\t(1) - for E-Book",
+                    "\t(2) - for Hard Cover",
+                    "\t(3) - for Audio Book",
+                    "\t(0) - to Exit\n"
+                ));
 
-        string? choice = ReadLine().Trim() ?? "";
-        //WriteLine("displaying menu choice validation: " + ValidateInput(choice, "menu"));
-        //WriteLine("------------------------");
-        return choice;
+                break;
+
+            default:
+                break;
+        }
     }
 
 
-    private static bool ValidateInput(string input, string inputTYpe)
+    public static string GetInput(string inputType)
     {
-        switch (input)
+        switch (inputType)
         {
-            case "menu":
-                bool isConvertible = int.TryParse(input, out int result);
-                return result is >= 0 and <= 4;
+            case "choice":
+                Write("Enter your choice\t: ");
+                break;
 
+            case "title":
+                Write("Enter the title of the book\t: ");
+                break;
 
             default:
                 break;
         }
 
-        return false;
+        string? choice = ReadLine().Trim() ?? "";
+        return choice;
+    }
+
+
+    public static string AddNewBook(List<IBook> catalogue)
+    //public static string AddNewBook()
+    {
+        DisplayMainMenu("Book Type");
+        WriteLine("DEBUG ===>>> ");
+        string? choice = GetInput("choice");
+        string? title = GetInput("title");
+        switch (choice)
+        {
+            case "1": //
+            case "2":
+                HardCover book = new HardCover(title);
+              WriteLine($"{book.Location} {choice} {book.Title}");
+                //catalogue.Add(book);
+                catalogue.Add(book);
+                break;
+
+            default:
+                break;
+        }
+
+
+        return "x";
     }
 }
