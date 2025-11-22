@@ -1,4 +1,5 @@
 ﻿using static Library.Utility;
+using static Library.LibraryManager;
 
 namespace Library;
 
@@ -9,7 +10,7 @@ internal class Program
     private static void Main(string[] args)
     {
         bool isDisplayingMenu = true;
-        DisplayMainMenu("Main Menu");
+        DisplayMenu("Main Menu");
 
         while (isDisplayingMenu)
         {
@@ -50,7 +51,7 @@ internal class Program
         foreach (IBook book in catalogue)
         {
             WriteLine($"Title: {book.Title}, Type: {book.GetType().Name}, " +
-                      $"Borrowed:, Location:");
+                      $"Borrowed:, Location: {book.Location}");
         }
 
 

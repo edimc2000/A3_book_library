@@ -1,11 +1,8 @@
-﻿using Microsoft.VisualBasic;
-using System.Diagnostics.Metrics;
-
-namespace Library;
+﻿namespace Library;
 
 public class Utility
 {
-    public static void DisplayMainMenu(string menuType)
+    public static void DisplayMenu(string menuType)
     {
         switch (menuType)
         {
@@ -22,16 +19,26 @@ public class Utility
                 break;
 
             case "Book Type":
-                WriteLine(string.Format("{0}\n{1}\n\n{2}\n{3}\n{4}\n\n{5}",
+                WriteLine(string.Format("{0}\n{1}\n\n{2}\n{3}\n{4}\n",
                     "Book Type",
                     "Choose from the following Book Type ",
                     "Type\t(1) - for E-Book",
                     "\t(2) - for Hard Cover",
-                    "\t(3) - for Audio Book",
-                    "\t(0) - to Exit\n"
+                    "\t(3) - for Audio Book"
                 ));
 
                 break;
+
+            case "Add More":
+                WriteLine(string.Format("{0}\n{1}\n\n{2}\n{3}\n",
+                    "Add a book",
+                    "Choose from the following Options ",
+                    "Type\t(1) - to Add More",
+                    "\t(0) - to Exit"
+                ));
+
+                break;
+
 
             default:
                 break;
@@ -58,31 +65,5 @@ public class Utility
 
         string? choice = ReadLine().Trim() ?? "";
         return choice;
-    }
-
-
-    public static string AddNewBook(List<IBook> catalogue)
-    //public static string AddNewBook()
-    {
-        DisplayMainMenu("Book Type");
-        WriteLine("DEBUG ===>>> ");
-        string? choice = GetInput("choice");
-        string? title = GetInput("title");
-        switch (choice)
-        {
-            case "1": //
-            case "2":
-                HardCover book = new HardCover(title);
-              WriteLine($"{book.Location} {choice} {book.Title}");
-                //catalogue.Add(book);
-                catalogue.Add(book);
-                break;
-
-            default:
-                break;
-        }
-
-
-        return "x";
     }
 }

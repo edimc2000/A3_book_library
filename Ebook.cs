@@ -16,4 +16,10 @@ internal class Ebook : IBook
 
     public string? Title { get; set; }
     public string Location { get; set; }
+
+    public Ebook(string title)
+    {
+        Title = title;
+        Location = "Web";
+    }
 }

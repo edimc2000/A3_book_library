@@ -17,4 +17,11 @@ internal class AudioBook : IBook
     public string? Title { get; set; }
 
     public string Location { get; set; }
+
+
+    public AudioBook(string title)
+    {
+        Title = title;
+        Location = "Web";
+    }
 }
