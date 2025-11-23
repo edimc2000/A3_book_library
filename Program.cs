@@ -34,11 +34,12 @@ internal class Program
                     break;
 
                 case "2": // find a book
-                    Search();
+                    Search(false, "search");
                     isDisplayingMenu = true;
                     break;
 
                 case "3": // borrow a book 
+                    Borrow();
                     isDisplayingMenu = true;
                     break;
 

@@ -42,7 +42,7 @@ public class Utility
                 DisplayTitle("", "top", 46);
                 WriteLine(PrintCenteredTitle("Add a book", 46));
                 WriteLine(string.Format("{0}\n{1}\n{2}\n{3}",
-                    PrintCenteredTitle("Choose from the following Book Type", 46),
+                    PrintCenteredTitle("Choose from the following Options", 46),
                     PrintCenteredTitle("", 46),
                     PrintCenteredTitle("Type\t(1) - to Add More        ", 44),
                     PrintCenteredTitle("\t(0) - to Exit       ", 44)

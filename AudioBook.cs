@@ -8,11 +8,14 @@ internal class AudioBook : IBook
     }
 
     public void MarkAsReturned()
+
     {
+        isAvailable = true;
     }
 
-    public void GetLocation()
+    public string GetLocation()
     {
+        return Location; 
     }
 
     public string? Title { get; set; }

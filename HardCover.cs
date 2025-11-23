@@ -5,12 +5,18 @@ namespace Library
     {
         public void MarkAsBorrowed()
         {
+            isAvailable = false;
         }
+
         public void MarkAsReturned()
+
         {
+            isAvailable = true;
         }
-        public void GetLocation()
+
+        public string GetLocation()
         {
+            return Location;
         }
 
         public string Title  { get; set; }

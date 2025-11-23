@@ -8,5 +8,5 @@ public interface IBook
 
     void MarkAsBorrowed();
     void MarkAsReturned();
-    void GetLocation();
+    string GetLocation();
 }

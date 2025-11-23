@@ -79,22 +79,45 @@ internal class LibraryManager
     }
 
 
-    public static int Search()
+    public static List<IBook> Search(bool isSubRoutine, string action)
     {
-        DisplayTitle("Find a book", "all", 46);
+        
+        if (!isSubRoutine) DisplayTitle("Find a book", "all", 46);
+        
         string? userInput = GetInput("title").ToLower
             ();
 
+        List<IBook> results;
 
-        List<IBook> results = Collection.catalogue
-            .Where(b => b.Title.ToLower().Contains(userInput))
-            .ToList();
+
+        switch (action)
+        {
+            case "borrow":
+                results = Collection.catalogue
+                    .Where(b => (b.Title.ToLower().Contains(userInput)) && b.isAvailable)
+                    .ToList();
+                break;
+
+            case "return":
+                results = Collection.catalogue
+                    .Where(b => (b.Title.ToLower().Contains(userInput)) && !(b.isAvailable))
+                    .ToList();
+                break;
+
+
+            default:
+                results = Collection.catalogue
+                    .Where(b => b.Title.ToLower().Contains(userInput))
+                    .ToList();
+                break;
+        }
+
 
 
         DisplayTitle("", "top", 46);
         WriteLine(PrintCenteredTitle("Search Results", 46));
         DisplayTitle("", "bottom", 46);
-        
+
         int counter = 0;
         foreach (IBook book in results)
         {
@@ -102,30 +125,66 @@ internal class LibraryManager
             string bookType = $"Book Type : {book.GetType().Name}";
             string bookStatus = $"Available : {book.isAvailable}";
             string availableOrBorrowed = book.isAvailable ? "available" : "borrowed";
-            string sentence = $"The book \"{book.Title}\" is {availableOrBorrowed}";
-            
-            DisplayTitle("", "top", sentence.Length + 4);
-            WriteLine(PrintLeftAlignedBordered(bookTitle, sentence.Length + 2));
-            WriteLine(PrintLeftAlignedBordered(bookType, sentence.Length + 2));
-            WriteLine(PrintLeftAlignedBordered(bookStatus, sentence.Length + 2));
-            WriteLine(PrintLeftAlignedBordered("", sentence.Length + 2));
-            WriteLine(PrintLeftAlignedBordered(sentence, sentence.Length + 2));
+            string message = $"The book \"{book.Title}\" is {availableOrBorrowed}";
+
+            DisplayTitle("", "top", message.Length + 4);
+            WriteLine(PrintLeftAlignedBordered(bookTitle, message.Length + 2));
+            WriteLine(PrintLeftAlignedBordered(bookType, message.Length + 2));
+            WriteLine(PrintLeftAlignedBordered(bookStatus, message.Length + 2));
+            WriteLine(PrintLeftAlignedBordered("", message.Length + 2));
+            WriteLine(PrintLeftAlignedBordered(message, message.Length + 2));
 
 
-            DisplayTitle("", "bottom", sentence.Length + 4);
+            DisplayTitle("", "bottom", message.Length + 4);
 
             counter++;
         }
 
-        if (results.Count == 0)
+        if (results.Count == 0 && action.Equals("search") )
         {
-            string sentence = $"The book \"{userInput}\" does not exist in the library";
-
-            DisplayTitle("", "top", sentence.Length + 4);
-            WriteLine(PrintCenteredTitle(sentence, sentence.Length + 4));
-            DisplayTitle("", "bottom", sentence.Length + 4);
+            string message = $"The book \"{userInput}\" does not exist in the library";
+            DisplayTitle("", "top", message.Length + 4);
+            WriteLine(PrintCenteredTitle(message, message.Length + 4));
+            DisplayTitle("", "bottom", message.Length + 4);
         }
 
-        return results.Count;
+        return results;
+    }
+
+    public static void Borrow()
+    {
+        DisplayTitle("Borrow a book", "all", 46);
+
+        List<IBook> bookCount = Search(true, "borrow");
+        if (bookCount.Count > 1)
+        {
+            WriteLine("\nMultiple matches found. Please refine your search.");
+        }
+        else
+        {
+            try
+            {
+                WriteLine(bookCount[0].Title);
+                WriteLine(bookCount[0].GetLocation());
+                bookCount[0].MarkAsBorrowed();
+                bookCount[0].Location = "Client";
+            
+                WriteLine(bookCount[0].GetLocation());
+            }
+            catch
+
+            {
+                WriteLine("This title is currently unavailable");
+            }
+
+
+
+        }
+
+
+
+
+
+
     }
 }
