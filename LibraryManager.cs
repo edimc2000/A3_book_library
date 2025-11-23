@@ -166,8 +166,14 @@ internal class LibraryManager
             {
                 WriteLine(bookCount[0].Title);
                 WriteLine(bookCount[0].GetLocation());
+                WriteLine(bookCount[0].GetType().Name);
                 bookCount[0].MarkAsBorrowed();
-                bookCount[0].Location = "Client";
+
+
+                bookCount[0].Location = bookCount[0].GetType().Name.Equals("HardCover")
+                    ? "Client"
+                    : bookCount[0].Location; 
+            
             
                 WriteLine(bookCount[0].GetLocation());
             }
