@@ -15,12 +15,19 @@ internal class Collection
         new AudioBook("Lee Kuan Yew: Hard Truths to Keep Singapore Going");
 
 
+    private static AudioBook seed4 =
+        new AudioBook("Singapore: A Modern History");
+
+
 
     public static void SeedCatalogue()
     {
         catalogue.Add(seed1);
         catalogue.Add(seed2);
         catalogue.Add(seed3);
+        catalogue.Add(seed4);
+
+        seed4.MarkAsBorrowed();
     }
 
 

@@ -4,6 +4,7 @@ internal class AudioBook : IBook
 {
     public void MarkAsBorrowed()
     {
+        isAvailable = false;
     }
 
     public void MarkAsReturned()

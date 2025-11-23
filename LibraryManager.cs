@@ -98,7 +98,7 @@ internal class LibraryManager
         int counter = 0;
         foreach (IBook book in results)
         {
-            string bookTitle = $"Title {":".PadLeft(5)}{book.Title}";
+            string bookTitle = $"Title {":".PadLeft(5)} {book.Title}";
             string bookType = $"Book Type : {book.GetType().Name}";
             string bookStatus = $"Available : {book.isAvailable}";
             string availableOrBorrowed = book.isAvailable ? "available" : "borrowed";
