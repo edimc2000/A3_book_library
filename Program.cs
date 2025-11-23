@@ -53,7 +53,7 @@ internal class Program
                     break;
 
                 default:
-                    DisplayErrorOperation();
+                    DisplayErrorOperation("", "");
                     break;
             }
         }

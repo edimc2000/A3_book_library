@@ -47,7 +47,7 @@ internal class LibraryManager
                     break;
 
                 default:
-                    DisplayErrorOperation();
+                    DisplayErrorOperation("", "");
                     break;
             }
         }
@@ -70,7 +70,7 @@ internal class LibraryManager
                     break;
 
                 default:
-                    DisplayErrorOperation();
+                    DisplayErrorOperation("", "");
                     break;
             }
         }
@@ -121,10 +121,6 @@ internal class LibraryManager
         }
 
 
-
-    
-
-
         DisplayTitle("", "top", boxWidth + 2);
         WriteLine(PrintCenteredTitle("Search Results", boxWidth + 2));
         DisplayTitle("", "bottom", boxWidth + 2);
@@ -154,12 +150,7 @@ internal class LibraryManager
         }
 
         if (results.Count == 0 && action.Equals("search"))
-        {
-            string message = $"The book \"{userInput}\" does not exist in the library";
-            DisplayTitle("", "top", message.Length + 4);
-            WriteLine(PrintCenteredTitle(message, message.Length + 4));
-            DisplayTitle("", "bottom", message.Length + 4);
-        }
+            DisplayErrorOperation("no result", userInput);
 
         return results;
     }
@@ -173,41 +164,46 @@ internal class LibraryManager
             WriteLine("\nMultiple matches found. Please refine your search.");
 
         else if (bookCount.Count == 0)
-            WriteLine("(0) This title is currently unavailable");
-        else
-            try
+            DisplayErrorOperation("title not available", "");
+        try
+        {
+            if (bookCount.Count == 1)
             {
-                if (bookCount.Count == 1)
+                DisplayMenu("Borrow");
+
+                string choice = GetInput("choice");
+                switch (choice)
                 {
-                    DisplayMenu("Borrow");
-
-                    string choice = GetInput("choice");
-                    switch (choice)
-                    {
-                        case "1":
-                            bookCount[0].MarkAsBorrowed();
+                    case "1":
+                        bookCount[0].MarkAsBorrowed();
 
 
-                            bookCount[0].Location = bookCount[0].GetType().Name.Equals("HardCover")
-                                ? "Client"
-                                : bookCount[0].Location;
+                        //bookCount[0].Location = bookCount[0].GetType().Name.Equals("HardCover")
+                        //    ? "Client"
+                        //    : bookCount[0].Location;
 
-                            WriteLine($"\nTitle: {bookCount[0].Title}" +
-                                      $"\nItem successfully marked as borrowed.");
-                            break;
-                        case "0":
-                            break;
-                        default:
-                            DisplayErrorOperation();
-                            break;
-                    }
+
+                        HardCoverChangeLocation(bookCount[0], "Client");
+
+                        //WriteLine($"\nTitle: {bookCount[0].Title}" +
+                        //          $"\nItem successfully marked as borrowed.");
+
+                        successMessage(bookCount[0], "borrowed");
+                        break;
+                    case "0":
+                        break;
+                    default:
+                        DisplayErrorOperation("", "");
+                        ;
+                        break;
                 }
             }
-            catch
+        }
+        catch
 
-            {
-                WriteLine("This title is currently unavailable");
-            }
+        {
+            DisplayErrorOperation("title not available", "");
+        }
     }
 
 
@@ -220,7 +216,7 @@ internal class LibraryManager
             WriteLine("\nMultiple matches found. Please refine your search.");
 
         else if (bookCount.Count == 0)
-            WriteLine("(0) This title is currently unavailable");
+            DisplayErrorOperation("title not available", "");
         else
             try
             {
@@ -235,17 +231,22 @@ internal class LibraryManager
                             bookCount[0].MarkAsReturned();
 
 
-                            bookCount[0].Location = bookCount[0].GetType().Name.Equals("HardCover")
-                                ? "Library"
-                                : bookCount[0].Location;
+                            //bookCount[0].Location = bookCount[0].GetType().Name.Equals("HardCover")
+                            //    ? "Library"
+                            //    : bookCount[0].Location;
 
-                            WriteLine($"\nTitle: {bookCount[0].Title}" +
-                                      $"\nItem successfully marked as returned.");
+                            HardCoverChangeLocation(bookCount[0], "Library");
+
+                            //WriteLine($"\nTitle: {bookCount[0].Title}" +
+                            //          $"\nItem successfully marked as returned.");
+
+                            successMessage(bookCount[0], "returned");
+
                             break;
                         case "0":
                             break;
                         default:
-                            DisplayErrorOperation();
+                            DisplayErrorOperation("", "");
                             break;
                     }
                 }
@@ -253,7 +254,7 @@ internal class LibraryManager
             catch
 
             {
-                WriteLine("This title is currently unavailable");
+                DisplayErrorOperation("title not available", "");
             }
     }
 }

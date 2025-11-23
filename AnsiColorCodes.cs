@@ -24,4 +24,10 @@ internal static class AnsiColorCodes
 
     /// <summary> White foreground color </summary>
     public const string Foreground = "\e[37m";
+
+    /// <summary>Bright green font and white background for success messages</summary>
+    public const string GeneralGreen = "\e[48;2;255;255;255;38;2;0;102;0m";
+
+    /// <summary>Blue font and white background for general messages</summary>
+    public const string GeneralBlue = "\e[48;2;255;255;255;38;2;0;0;255m";
 }

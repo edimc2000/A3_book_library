@@ -103,9 +103,28 @@ public class Utility
     }
 
 
-    public static void DisplayErrorOperation()
+    public static void DisplayErrorOperation(string errorType, string otherVariable)
     {
-        WriteLine("This operation is not supported, please try again.");
+        switch (errorType)
+        {
+            case "no result":
+                WriteLine(
+                    $"  {AnsiColorCodes.Error}  The book \"{otherVariable}\" does not exist in the library.  " +
+                    $"{AnsiColorCodes.Reset}");
+                break;
+
+            case "title not available":
+                WriteLine(
+                    $"  {AnsiColorCodes.Error}  This title is currently unavailable.  " +
+                    $"{AnsiColorCodes.Reset}");
+                break;
+
+            default:
+                WriteLine(
+                    $"  {AnsiColorCodes.Error}  This operation is not supported, please try again.  " +
+                    $"{AnsiColorCodes.Reset}");
+                break;
+        }
     }
 
     /// <summary> Displays formatted title with decorative borders</summary>
@@ -177,5 +196,28 @@ public class Utility
     {
         double result;
         return double.TryParse(input, out result);
+    }
+
+
+    public static void HardCoverChangeLocation(IBook instance, string location)
+    {
+        instance.Location = instance.GetType().Name.Equals("HardCover")
+            ? location
+            : instance.Location;
+    }
+
+    public static void successMessage(IBook instance, string action)
+    {
+
+        string actionFromatted =
+            action.Equals("borrowed")
+                ? $"{AnsiColorCodes.GeneralBlue} {action} {AnsiColorCodes.Reset}"
+                : $"{AnsiColorCodes.GeneralGreen} {action} {AnsiColorCodes.Reset}";
+
+
+
+        WriteLine($"\nTitle: {instance.Title}" +
+                  $"\nItem successfully marked as {actionFromatted}.");
+
     }
 }
