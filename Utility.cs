@@ -51,6 +51,30 @@ public class Utility
                 DisplayTitle("", "bottom", 46);
                 break;
 
+            case "Borrow":
+                DisplayTitle("", "top", 46);
+                WriteLine(PrintCenteredTitle("Choose from the following Options", 46));
+                WriteLine(string.Format("{0}\n{1}\n{2}",
+                    PrintCenteredTitle("", 46),
+                    PrintCenteredTitle("Type\t(1) - Mark as borrowed   ", 44),
+                    PrintCenteredTitle("\t(0) - to Exit       ", 44)
+                ));
+                WriteLine(PrintCenteredTitle("", 46));
+                DisplayTitle("", "bottom", 46);
+                break;
+
+            case "Return":
+                DisplayTitle("", "top", 46);
+                WriteLine(PrintCenteredTitle("Choose from the following Options", 46));
+                WriteLine(string.Format("{0}\n{1}\n{2}",
+                    PrintCenteredTitle("", 46),
+                    PrintCenteredTitle("Type\t(1) - Mark as returned   ", 44),
+                    PrintCenteredTitle("\t(0) - to Exit       ", 44)
+                ));
+                WriteLine(PrintCenteredTitle("", 46));
+                DisplayTitle("", "bottom", 46);
+                break;
+
 
             default:
                 break;

@@ -44,6 +44,7 @@ internal class Program
                     break;
 
                 case "4":
+                    Return();
                     isDisplayingMenu = true;
                     break;
 

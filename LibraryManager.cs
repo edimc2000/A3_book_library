@@ -81,26 +81,34 @@ internal class LibraryManager
 
     public static List<IBook> Search(bool isSubRoutine, string action)
     {
-        
         if (!isSubRoutine) DisplayTitle("Find a book", "all", 46);
-        
-        string? userInput = GetInput("title").ToLower
-            ();
 
+        string? userInput = GetInput("title").ToLower();
+
+        int counter = 0;
+        int boxWidth = 0;
         List<IBook> results;
 
+        // get the max width for the search result items 
+        foreach (IBook book in Collection.catalogue)
+        {
+            string availableOrBorrowed = book.isAvailable ? "available" : "borrowed";
+            string message = $"The book \"{book.Title}\" is {availableOrBorrowed}";
+            if (message.Length > boxWidth)
+                boxWidth = message.Length + 2;
+        }
 
         switch (action)
         {
             case "borrow":
                 results = Collection.catalogue
-                    .Where(b => (b.Title.ToLower().Contains(userInput)) && b.isAvailable)
+                    .Where(b => b.Title.ToLower().Contains(userInput) && b.isAvailable)
                     .ToList();
                 break;
 
             case "return":
                 results = Collection.catalogue
-                    .Where(b => (b.Title.ToLower().Contains(userInput)) && !(b.isAvailable))
+                    .Where(b => b.Title.ToLower().Contains(userInput) && !b.isAvailable)
                     .ToList();
                 break;
 
@@ -114,33 +122,38 @@ internal class LibraryManager
 
 
 
-        DisplayTitle("", "top", 46);
-        WriteLine(PrintCenteredTitle("Search Results", 46));
-        DisplayTitle("", "bottom", 46);
+    
 
-        int counter = 0;
+
+        DisplayTitle("", "top", boxWidth + 2);
+        WriteLine(PrintCenteredTitle("Search Results", boxWidth + 2));
+        DisplayTitle("", "bottom", boxWidth + 2);
+
         foreach (IBook book in results)
         {
             string bookTitle = $"Title {":".PadLeft(5)} {book.Title}";
             string bookType = $"Book Type : {book.GetType().Name}";
             string bookStatus = $"Available : {book.isAvailable}";
+            string bookLocation = $"Location  : {book.GetLocation()}";
             string availableOrBorrowed = book.isAvailable ? "available" : "borrowed";
             string message = $"The book \"{book.Title}\" is {availableOrBorrowed}";
 
-            DisplayTitle("", "top", message.Length + 4);
-            WriteLine(PrintLeftAlignedBordered(bookTitle, message.Length + 2));
-            WriteLine(PrintLeftAlignedBordered(bookType, message.Length + 2));
-            WriteLine(PrintLeftAlignedBordered(bookStatus, message.Length + 2));
-            WriteLine(PrintLeftAlignedBordered("", message.Length + 2));
-            WriteLine(PrintLeftAlignedBordered(message, message.Length + 2));
+            //DisplayTitle("", "top", boxWidth);
+            DisplayTitle("", "top", boxWidth + 2);
+            WriteLine(PrintLeftAlignedBordered(bookTitle, boxWidth));
+            WriteLine(PrintLeftAlignedBordered(bookType, boxWidth));
+            WriteLine(PrintLeftAlignedBordered(bookStatus, boxWidth));
+            WriteLine(PrintLeftAlignedBordered(bookLocation, boxWidth));
+            WriteLine(PrintLeftAlignedBordered("", boxWidth));
+            WriteLine(PrintLeftAlignedBordered(message, boxWidth));
 
 
-            DisplayTitle("", "bottom", message.Length + 4);
+            DisplayTitle("", "bottom", boxWidth + 2);
 
             counter++;
         }
 
-        if (results.Count == 0 && action.Equals("search") )
+        if (results.Count == 0 && action.Equals("search"))
         {
             string message = $"The book \"{userInput}\" does not exist in the library";
             DisplayTitle("", "top", message.Length + 4);
@@ -157,40 +170,90 @@ internal class LibraryManager
 
         List<IBook> bookCount = Search(true, "borrow");
         if (bookCount.Count > 1)
-        {
             WriteLine("\nMultiple matches found. Please refine your search.");
-        }
+
+        else if (bookCount.Count == 0)
+            WriteLine("(0) This title is currently unavailable");
         else
-        {
             try
             {
-                WriteLine(bookCount[0].Title);
-                WriteLine(bookCount[0].GetLocation());
-                WriteLine(bookCount[0].GetType().Name);
-                bookCount[0].MarkAsBorrowed();
+                if (bookCount.Count == 1)
+                {
+                    DisplayMenu("Borrow");
+
+                    string choice = GetInput("choice");
+                    switch (choice)
+                    {
+                        case "1":
+                            bookCount[0].MarkAsBorrowed();
 
 
-                bookCount[0].Location = bookCount[0].GetType().Name.Equals("HardCover")
-                    ? "Client"
-                    : bookCount[0].Location; 
-            
-            
-                WriteLine(bookCount[0].GetLocation());
+                            bookCount[0].Location = bookCount[0].GetType().Name.Equals("HardCover")
+                                ? "Client"
+                                : bookCount[0].Location;
+
+                            WriteLine($"\nTitle: {bookCount[0].Title}" +
+                                      $"\nItem successfully marked as borrowed.");
+                            break;
+                        case "0":
+                            break;
+                        default:
+                            DisplayErrorOperation();
+                            break;
+                    }
+                }
             }
             catch
 
             {
                 WriteLine("This title is currently unavailable");
             }
+    }
 
 
+    public static void Return()
+    {
+        DisplayTitle("Return a book", "all", 46);
 
-        }
+        List<IBook> bookCount = Search(true, "return");
+        if (bookCount.Count > 1)
+            WriteLine("\nMultiple matches found. Please refine your search.");
+
+        else if (bookCount.Count == 0)
+            WriteLine("(0) This title is currently unavailable");
+        else
+            try
+            {
+                if (bookCount.Count == 1)
+                {
+                    DisplayMenu("Return");
+
+                    string choice = GetInput("choice");
+                    switch (choice)
+                    {
+                        case "1":
+                            bookCount[0].MarkAsReturned();
 
 
+                            bookCount[0].Location = bookCount[0].GetType().Name.Equals("HardCover")
+                                ? "Library"
+                                : bookCount[0].Location;
 
+                            WriteLine($"\nTitle: {bookCount[0].Title}" +
+                                      $"\nItem successfully marked as returned.");
+                            break;
+                        case "0":
+                            break;
+                        default:
+                            DisplayErrorOperation();
+                            break;
+                    }
+                }
+            }
+            catch
 
-
-
+            {
+                WriteLine("This title is currently unavailable");
+            }
     }
 }
