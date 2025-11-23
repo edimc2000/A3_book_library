@@ -7,23 +7,25 @@ internal class LibraryManager
     public static void AddNewBook(List<IBook> catalogue)
         //public static string AddNewBook()
     {
+        DisplayTitle("Add a book", "all");
         bool isLooping = true;
         while (isLooping)
         {
             string? title = GetInput("title");
             WriteLine("DEBUG ===>>>800 ");
-            DisplayAndAddBook(title, catalogue);
+            DisplayAndAddBook(title);
 
 
             WriteLine("(1) Entry added.\n\n");
 
 
-            isLooping = AddMoreOrExit(catalogue);
+            isLooping = AddMoreOrExit();
         }
     }
 
-    private static void DisplayAndAddBook(string title, List<IBook> catalogue)
+    private static void DisplayAndAddBook(string title)
     {
+
         DisplayMenu("Book Type");
         bool isDisplayingMenu = true;
         while (isDisplayingMenu)
@@ -34,19 +36,19 @@ internal class LibraryManager
             {
                 case "1":
                     Ebook eBook = new(title);
-                    catalogue.Add(eBook);
+                    Collection.catalogue.Add(eBook);
                     isDisplayingMenu = false;
                     break;
 
                 case "2":
                     HardCover book = new(title);
-                    catalogue.Add(book);
+                    Collection.catalogue.Add(book);
                     isDisplayingMenu = false;
                     break;
 
                 case "3":
                     AudioBook audioBook = new(title);
-                    catalogue.Add(audioBook);
+                    Collection.catalogue.Add(audioBook);
                     isDisplayingMenu = false;
                     break;
 
@@ -57,7 +59,7 @@ internal class LibraryManager
         }
     }
 
-    private static bool AddMoreOrExit(List<IBook> catalogue)
+    private static bool AddMoreOrExit()
     {
         DisplayMenu("Add More");
         bool isDisplayingMenu = true;
@@ -68,7 +70,7 @@ internal class LibraryManager
             {
                 case "1":
                     WriteLine("DEBUG ===>>>600 ");
-                                        return true;
+                    return true;
 
                 case "0":
                     isDisplayingMenu = false;
@@ -81,5 +83,29 @@ internal class LibraryManager
         }
 
         return isDisplayingMenu;
+    }
+
+
+    public static int Search()
+    {
+        WriteLine("Search---------------");
+        string? userInput = GetInput("title").ToLower();
+
+     
+        List<IBook> results = Collection.catalogue
+            .Where(b => b.Title.ToLower().Contains(userInput))
+            .ToList();
+
+        int counter = 0; 
+        foreach (IBook book in results)
+        {
+            WriteLine($"*{counter+1}********{results.Count}*********");
+            WriteLine($"Title: {book.Title}, \nType: {book.GetType().Name}, " +
+                      $"\nAvailable:{book.isAvailable}, \nLocation: {book.Location}");
+            counter++; 
+        }
+    
+
+        return results.Count;
     }
 }

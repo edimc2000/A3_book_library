@@ -16,11 +16,13 @@ namespace Library
         public string Title  { get; set; }
 
         public string Location { get; set; }
+        public bool isAvailable { get; set; }
 
         public HardCover(string title)
         {
             Title = title;
             Location = "Library";
+            isAvailable = true;
         }
 
     }

@@ -5,34 +5,46 @@ namespace Library;
 
 internal class Program
 {
-    public static List<IBook> catalogue = new List<IBook>();
+    //public static List<IBook> catalogue = new List<IBook>();
+
 
     private static void Main(string[] args)
     {
         bool isDisplayingMenu = true;
-        DisplayMenu("Main Menu");
+        //DisplayMenu("Main Menu");
+        Clear();
+        Collection.SeedCatalogue();
+
+        //foreach (IBook book in Collection.catalogue)
+        //{
+        //    WriteLine("******************");
+        //    WriteLine($"Title: {book.Title}, \nType: {book.GetType().Name}, " +
+        //              $"\nAvailable:{book.isAvailable}, \nLocation: {book.Location}");
+        //}
 
         while (isDisplayingMenu)
         {
+            DisplayMenu("Main Menu");
             string? choice = GetInput("choice");
 
             switch (choice)
             {
                 case "1": // add a new book 
-                    AddNewBook(catalogue);
-                    isDisplayingMenu = false;
+                    AddNewBook(Collection.catalogue);
+                    isDisplayingMenu = true;
                     break;
 
                 case "2": // find a book
-                    isDisplayingMenu = false;
+                    Search();
+                    isDisplayingMenu = true;
                     break;
 
                 case "3": // borrow a book 
-                    isDisplayingMenu = false;
+                    isDisplayingMenu = true;
                     break;
 
                 case "4":
-                    isDisplayingMenu = false;
+                    isDisplayingMenu = true;
                     break;
 
                 case "0":
@@ -45,15 +57,14 @@ internal class Program
             }
         }
 
-        WriteLine("******************");
-        WriteLine( catalogue);
+        //WriteLine("******************");
+        //WriteLine(Collection.catalogue);
 
-        foreach (IBook book in catalogue)
-        {
-            WriteLine($"Title: {book.Title}, Type: {book.GetType().Name}, " +
-                      $"Borrowed:, Location: {book.Location}");
-        }
-
-
+        //foreach (IBook book in Collection.catalogue)
+        //{
+        //    WriteLine("******************");
+        //    WriteLine($"Title: {book.Title}, \nType: {book.GetType().Name}, " +
+        //              $"\nAvailable:{book.isAvailable}, \nLocation: {book.Location}");
+        //}
     }
 }
