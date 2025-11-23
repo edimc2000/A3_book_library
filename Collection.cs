@@ -5,7 +5,7 @@ internal class Collection
     public static List<IBook> catalogue = new List<IBook>();
    
     private static HardCover seed1 =
-        new HardCover(" From Third World to First, The Singapore Story: " +
+        new HardCover("From Third World to First, The Singapore Story: " +
                       "Memoirs of Lee Kuan Yew");
 
     private static Ebook seed2 =

@@ -10,17 +10,16 @@ internal class Program
 
     private static void Main(string[] args)
     {
+        //DisplayMenu("Add More");
+        //debugging
+
+
         bool isDisplayingMenu = true;
-        //DisplayMenu("Main Menu");
+
         Clear();
         Collection.SeedCatalogue();
 
-        //foreach (IBook book in Collection.catalogue)
-        //{
-        //    WriteLine("******************");
-        //    WriteLine($"Title: {book.Title}, \nType: {book.GetType().Name}, " +
-        //              $"\nAvailable:{book.isAvailable}, \nLocation: {book.Location}");
-        //}
+
 
         while (isDisplayingMenu)
         {
@@ -57,14 +56,5 @@ internal class Program
             }
         }
 
-        //WriteLine("******************");
-        //WriteLine(Collection.catalogue);
-
-        //foreach (IBook book in Collection.catalogue)
-        //{
-        //    WriteLine("******************");
-        //    WriteLine($"Title: {book.Title}, \nType: {book.GetType().Name}, " +
-        //              $"\nAvailable:{book.isAvailable}, \nLocation: {book.Location}");
-        //}
     }
 }

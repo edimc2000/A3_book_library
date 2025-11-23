@@ -7,25 +7,19 @@ internal class LibraryManager
     public static void AddNewBook(List<IBook> catalogue)
         //public static string AddNewBook()
     {
-        DisplayTitle("Add a book", "all");
+        DisplayTitle("Add a book", "all", 46);
         bool isLooping = true;
         while (isLooping)
         {
             string? title = GetInput("title");
-            WriteLine("DEBUG ===>>>800 ");
             DisplayAndAddBook(title);
-
-
-            WriteLine("(1) Entry added.\n\n");
-
-
+            WriteLine("\n  Entry added.\n\n");
             isLooping = AddMoreOrExit();
         }
     }
 
     private static void DisplayAndAddBook(string title)
     {
-
         DisplayMenu("Book Type");
         bool isDisplayingMenu = true;
         while (isDisplayingMenu)
@@ -69,7 +63,6 @@ internal class LibraryManager
             switch (choice)
             {
                 case "1":
-                    WriteLine("DEBUG ===>>>600 ");
                     return true;
 
                 case "0":
@@ -88,23 +81,50 @@ internal class LibraryManager
 
     public static int Search()
     {
-        WriteLine("Search---------------");
-        string? userInput = GetInput("title").ToLower();
+        DisplayTitle("Find a book", "all", 46);
+        string? userInput = GetInput("title").ToLower
+            ();
 
-     
+
         List<IBook> results = Collection.catalogue
             .Where(b => b.Title.ToLower().Contains(userInput))
             .ToList();
 
-        int counter = 0; 
+
+        DisplayTitle("", "top", 46);
+        WriteLine(PrintCenteredTitle("Search Results", 46));
+        DisplayTitle("", "bottom", 46);
+        
+        int counter = 0;
         foreach (IBook book in results)
         {
-            WriteLine($"*{counter+1}********{results.Count}*********");
-            WriteLine($"Title: {book.Title}, \nType: {book.GetType().Name}, " +
-                      $"\nAvailable:{book.isAvailable}, \nLocation: {book.Location}");
-            counter++; 
+            string bookTitle = $"Title {":".PadLeft(5)}{book.Title}";
+            string bookType = $"Book Type : {book.GetType().Name}";
+            string bookStatus = $"Available : {book.isAvailable}";
+            string availableOrBorrowed = book.isAvailable ? "available" : "borrowed";
+            string sentence = $"The book \"{book.Title}\" is {availableOrBorrowed}";
+            
+            DisplayTitle("", "top", sentence.Length + 4);
+            WriteLine(PrintLeftAlignedBordered(bookTitle, sentence.Length + 2));
+            WriteLine(PrintLeftAlignedBordered(bookType, sentence.Length + 2));
+            WriteLine(PrintLeftAlignedBordered(bookStatus, sentence.Length + 2));
+            WriteLine(PrintLeftAlignedBordered("", sentence.Length + 2));
+            WriteLine(PrintLeftAlignedBordered(sentence, sentence.Length + 2));
+
+
+            DisplayTitle("", "bottom", sentence.Length + 4);
+
+            counter++;
         }
-    
+
+        if (results.Count == 0)
+        {
+            string sentence = $"The book \"{userInput}\" does not exist in the library";
+
+            DisplayTitle("", "top", sentence.Length + 4);
+            WriteLine(PrintCenteredTitle(sentence, sentence.Length + 4));
+            DisplayTitle("", "bottom", sentence.Length + 4);
+        }
 
         return results.Count;
     }

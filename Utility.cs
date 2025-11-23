@@ -7,43 +7,48 @@ public class Utility
         switch (menuType)
         {
             case "Main Menu":
-                WriteLine();
-                DisplayTitle("Main  Menu", "all");
 
-                DisplayTitle("", "top");
-                WriteLine(string.Format("{0}\n{1}\n{2}\n{3}\n{4}",
+                DisplayTitle("Main  Menu", "all", 46);
 
+                DisplayTitle("", "top", 46);
+                WriteLine(string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}",
                     PrintCenteredTitle("Type\t(1) - to Add a new book  ", 44),
                     PrintCenteredTitle("\t(2) - to Find a book", 45),
                     PrintCenteredTitle("\t(3) - to Borrow     ", 45),
                     PrintCenteredTitle("\t(4) - to Return     ", 45),
+                    PrintCenteredTitle("", 46),
                     PrintCenteredTitle("\t(0) - to Exit       ", 45)
-     
                 ));
-                DisplayTitle("", "bottom");
+                DisplayTitle("", "bottom", 46);
                 break;
 
             case "Book Type":
-
-               
-                WriteLine(string.Format("{0}\n{1}\n\n{2}\n{3}\n{4}\n",
-                    "Book Type",
-                    "Choose from the following Book Type ",
-                    "Type\t(1) - for E-Book",
-                    "\t(2) - for Hard Cover",
-                    "\t(3) - for Audio Book"
+                DisplayTitle("", "top", 46);
+                WriteLine(PrintCenteredTitle("Book Type", 46));
+                WriteLine(PrintCenteredTitle("", 46));
+                WriteLine(string.Format("{0}\n{1}\n{2}\n{3}\n{4}",
+                    PrintCenteredTitle("Choose from the following Book Type", 46),
+                    PrintCenteredTitle("", 46),
+                    PrintCenteredTitle("Type\t(1) - for E-Book         ", 44),
+                    PrintCenteredTitle("\t(2) - for Hard Cover", 44),
+                    PrintCenteredTitle("\t(3) - for Audio Book", 44)
                 ));
 
+                WriteLine(PrintCenteredTitle("", 46));
+                DisplayTitle("", "bottom", 46);
                 break;
 
             case "Add More":
-                WriteLine(string.Format("{0}\n{1}\n\n{2}\n{3}\n",
-                    "Add a book",
-                    "Choose from the following Options ",
-                    "Type\t(1) - to Add More",
-                    "\t(0) - to Exit"
+                DisplayTitle("", "top", 46);
+                WriteLine(PrintCenteredTitle("Add a book", 46));
+                WriteLine(string.Format("{0}\n{1}\n{2}\n{3}",
+                    PrintCenteredTitle("Choose from the following Book Type", 46),
+                    PrintCenteredTitle("", 46),
+                    PrintCenteredTitle("Type\t(1) - to Add More        ", 44),
+                    PrintCenteredTitle("\t(0) - to Exit       ", 44)
                 ));
-
+                WriteLine(PrintCenteredTitle("", 46));
+                DisplayTitle("", "bottom", 46);
                 break;
 
 
@@ -58,11 +63,11 @@ public class Utility
         switch (inputType)
         {
             case "choice":
-                Write("Enter your choice\t: ");
+                Write("\n  Enter your choice\t\t: ");
                 break;
 
             case "title":
-                Write("Enter the title of the book\t: ");
+                Write("\n  Enter the title of the book\t: ");
                 break;
 
             default:
@@ -82,9 +87,9 @@ public class Utility
     /// <summary> Displays formatted title with decorative borders</summary>
     /// <param name="title">The title text to display</param>
     /// <param name="cover">Border type: "all", "top", or default for bottom</param>
-    public static void DisplayTitle(string title, string cover)
+    public static void DisplayTitle(string title, string cover, int charWdith)
     {
-        string lineBoxTop = new('─', 46);
+        string lineBoxTop = new('─', charWdith);
         const string cornerLeftTop = " ┌";
         const string cornerRightTop = "┐ ";
         const string cornerLeftBottom = " └";
@@ -97,6 +102,7 @@ public class Utility
         switch (cover)
         {
             case "all":
+                WriteLine();
                 string middle = PrintCenteredTitle(title, 46);
                 ApplyHighlighter(top);
                 ApplyHighlighter(middle);
@@ -124,6 +130,14 @@ public class Utility
         string centeredTitle = string.Format(" │{0,-" + availableWidth + "}│ ",
             title.PadLeft((availableWidth + title.Length) / 2).PadRight(availableWidth));
         return centeredTitle;
+    }
+
+
+    public static string PrintLeftAlignedBordered(string title, int width)
+    {
+        int availableWidth = width;
+        string borderedAlignedLeft = string.Format(" │  {0,-" + availableWidth + "}│ ", title);
+        return borderedAlignedLeft;
     }
 
 
