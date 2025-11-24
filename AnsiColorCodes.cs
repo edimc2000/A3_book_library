@@ -1,11 +1,10 @@
 ﻿namespace Library;
 
-
 /// <summary>ANSI escape codes for console coloring</summary>
 /// <remarks>
 /// <para>Author: Eddie C.</para>
-/// <para>Version: 1.0</para>
-/// <para>Since: 2025-11-09</para>
+/// <para>Version: 1.2</para>
+/// <para>Since: 2025-11-23</para>
 /// </remarks>
 
 internal static class AnsiColorCodes
