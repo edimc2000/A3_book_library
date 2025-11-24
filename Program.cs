@@ -1,63 +1,61 @@
 ﻿using static Library.support.Utility;
 using static Library.support.LibraryManager;
 
-
 namespace Library;
 
+/// <summary>Main entry point for the Library Management System</summary>
+/// <remarks>
+/// <para>Author: Eddie C.</para>
+/// <para>Version: 1.0</para>
+/// <para>Since: 2025-11-22</para>
+/// </remarks>
 internal class Program
 {
-    //public static List<IBook> Catalogue = new List<IBook>();
-
-
+    /// <summary>Main application entry point</summary>
+    /// <param name="args">Command line arguments</param>
+    /// <remarks>Initializes the library system and displays the main menu loop</remarks>
     private static void Main(string[] args)
     {
-        //DisplayMenu("Add More");
-        //debugging
-
-
         bool isDisplayingMenu = true;
 
         Clear();
         Collection.SeedCatalogue();
-
-
-
+        
         while (isDisplayingMenu)
         {
-            DisplayMenu("Main Menu");
-            string? choice = GetInput("choice");
+            DisplayMenu(MenuTypes.MainMenu);
+            string? choice = GetInput(InputTypes.Choice);
 
             switch (choice)
             {
-                case "1": // add a new book 
+                case BookProcesses.MainMenuAdd:  
                     AddNewBook(Collection.Catalogue);
                     isDisplayingMenu = true;
                     break;
 
-                case "2": // find a book
+                case BookProcesses.MainMenuSearch: 
                     Search(false, BookActions.Find);
                     isDisplayingMenu = true;
                     break;
 
-                case "3": // borrow a book 
+                case BookProcesses.MainMenuBorrow:
                     Borrow();
                     isDisplayingMenu = true;
                     break;
 
-                case "4":
+                case BookProcesses.MainMenuReturn: 
                     Return();
                     isDisplayingMenu = true;
                     break;
 
-                case "0":
+                case BookProcesses.MainMenuExit:
                     isDisplayingMenu = false;
                     break;
 
                 default:
-                    DisplayErrorOperation("", "");
+                    DisplayErrorOperation();
                     break;
             }
         }
-
     }
 }

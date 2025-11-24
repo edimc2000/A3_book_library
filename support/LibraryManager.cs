@@ -27,13 +27,19 @@ internal class LibraryManager
         public const string ReturnTitle = "Return a Book ";
         public const string SearchTitle = "Find a Book ";
 
-
         public const string ConfirmProcess = "1";
         public const string ExitProcess = "0";
 
         public const string TypeEbook = "1";
         public const string TypeHardCover = "2";
         public const string TypeAudioBook = "3";
+
+        public const string MainMenuExit = "0";
+        public const string MainMenuAdd = "1";
+        public const string MainMenuSearch = "2";  
+        public const string MainMenuBorrow = "3";
+        public const string MainMenuReturn = "4";
+
     }
 
     /// <summary>Adds new books to the library catalogue</summary>
@@ -129,7 +135,8 @@ internal class LibraryManager
     /// <returns>List of matching books</returns>
     public static List<IBook> Search(bool isSubRoutine, string action)
     {
-        if (!isSubRoutine) DisplayTitle(BookProcesses.SearchTitle, "all", StandardWidth);
+        if (!isSubRoutine) DisplayTitle(BookProcesses.SearchTitle, "all", 
+            StandardWidth);
 
         string? userInput = GetInput(InputTypes.Title).ToLower();
 
