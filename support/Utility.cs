@@ -2,84 +2,110 @@
 
 public class Utility
 {
+    public static class MenuTypes
+    {
+        public const string MainMenu = "Main Menu";
+        public const string BookType = "Book Type";
+        public const string AddMore = "Add More";
+        public const string Borrow = "Borrow";
+        public const string Return = "Return";
+    }
+
+    public static class InputTypes
+    {
+        public const string Choice = "choice";
+        public const string Title = "title";
+    }
+
+    public static class ErrorTypes
+    {
+        public const string NoResult = "no result";
+        public const string TitleUnavailable = "title not available";
+    }
+
+    public static class BookActions
+    {
+        public const string Borrowed = "borrowed";
+        public const string Returned = "returned";
+        public const string Added = "added";
+    }
+
+
+
     public static void DisplayMenu(string menuType)
     {
-
         const int StandardWidth = 47; // width for menu formatting
         switch (menuType)
         {
-
-            case "Main Menu":
+            case MenuTypes.MainMenu:
 
                 DisplayTitle("Main Menu", "all", StandardWidth);
 
                 DisplayTitle("", "top", StandardWidth);
-                WriteLine(string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}",
-                    PrintCenteredTitle("Type\t(1) - to Add a new book ", StandardWidth),
-                    PrintCenteredTitle("\t(2) - to Find a book", StandardWidth),
-                    PrintCenteredTitle("\t(3) - to Borrow    ", StandardWidth),
-                    PrintCenteredTitle("\t(4) - to Return    ", StandardWidth),
-                    PrintCenteredTitle("", StandardWidth),
-                    PrintCenteredTitle("\t(0) - to Exit      ", StandardWidth)
-                ));
+
+                WriteLine(PrintCenteredTitle("Type\t(1) - to Add a new book ", StandardWidth));
+                WriteLine(PrintCenteredTitle("\t(2) - to Find a book", StandardWidth));
+                WriteLine(PrintCenteredTitle("\t(3) - to Borrow    ", StandardWidth));
+                WriteLine(PrintCenteredTitle("\t(4) - to Return    ", StandardWidth));
+                WriteLine(PrintCenteredTitle("", StandardWidth));
+                WriteLine(PrintCenteredTitle("\t(0) - to Exit      ", StandardWidth));
+
                 WriteLine(PrintCenteredTitle("", StandardWidth));
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
 
-            case "Book Type":
+            case MenuTypes.BookType:
                 DisplayTitle("", "top", StandardWidth);
+                
                 WriteLine(PrintCenteredTitle("Book Type", StandardWidth));
                 WriteLine(PrintCenteredTitle("", StandardWidth));
-                WriteLine(string.Format("{0}\n{1}\n{2}\n{3}\n{4}",
-                    PrintCenteredTitle("Choose from the following Book Type", StandardWidth),
-                    PrintCenteredTitle("", StandardWidth),
-                    PrintCenteredTitle("Type\t(1) - for E-Book        ", StandardWidth),
-                    PrintCenteredTitle("\t(2) - for Hard Cover", StandardWidth),
-                    PrintCenteredTitle("\t(3) - for Audio Book", StandardWidth)
-                ));
+                WriteLine(PrintCenteredTitle("Choose from the following Book Type", StandardWidth));
+                WriteLine(PrintCenteredTitle("", StandardWidth));
+                WriteLine(PrintCenteredTitle("Type\t(1) - for E-Book        ", StandardWidth));
+                WriteLine(PrintCenteredTitle("\t(2) - for Hard Cover", StandardWidth));
+                WriteLine(PrintCenteredTitle("\t(3) - for Audio Book", StandardWidth));
 
                 WriteLine(PrintCenteredTitle("", StandardWidth));
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
 
-            case "Add More":
+            case MenuTypes.AddMore:
                 DisplayTitle("", "top", StandardWidth);
+                
                 WriteLine(PrintCenteredTitle("Add a book", StandardWidth));
-                WriteLine(string.Format("{0}\n{1}\n{2}\n{3}",
-                    PrintCenteredTitle("Choose from the following Options", StandardWidth),
-                    PrintCenteredTitle("", StandardWidth),
-                    PrintCenteredTitle("Type\t(1) - to Add More       ", StandardWidth),
-                    PrintCenteredTitle("\t(0) - to Exit       ", StandardWidth)
-                ));
+                WriteLine(PrintCenteredTitle("Choose from the following Options", StandardWidth));
+                WriteLine(PrintCenteredTitle("", StandardWidth));
+                WriteLine(PrintCenteredTitle("Type\t(1) - to Add More       ", StandardWidth));
+                WriteLine(PrintCenteredTitle("\t(0) - to Exit       ", StandardWidth));
+
                 WriteLine(PrintCenteredTitle("", StandardWidth));
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
 
-            case "Borrow":
+            case MenuTypes.Borrow:
                 DisplayTitle("", "top", StandardWidth);
                 WriteLine(PrintCenteredTitle("Choose from the following Options", StandardWidth));
-                WriteLine(string.Format("{0}\n{1}\n{2}",
-                    PrintCenteredTitle("", StandardWidth),
-                    PrintCenteredTitle("Type\t(1) - Mark as borrowed  ", StandardWidth),
-                    PrintCenteredTitle("\t(0) - to Exit       ", StandardWidth)
-                ));
+
+                WriteLine(PrintCenteredTitle("", StandardWidth));
+                WriteLine(PrintCenteredTitle("Type\t(1) - Mark as borrowed  ", StandardWidth));
+                WriteLine(PrintCenteredTitle("\t(0) - to Exit       ", StandardWidth));
+
                 WriteLine(PrintCenteredTitle("", StandardWidth));
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
 
-            case "Return":
+            case MenuTypes.Return:
                 DisplayTitle("", "top", StandardWidth);
                 WriteLine(PrintCenteredTitle("Choose from the following Options", StandardWidth));
-                WriteLine(string.Format("{0}\n{1}\n{2}",
-                    PrintCenteredTitle("", StandardWidth),
-                    PrintCenteredTitle("Type\t(1) - Mark as returned  ", StandardWidth),
-                    PrintCenteredTitle("\t(0) - to Exit       ", StandardWidth)
-                ));
+
+                WriteLine(PrintCenteredTitle("", StandardWidth));
+                WriteLine(PrintCenteredTitle("Type\t(1) - Mark as returned  ", StandardWidth));
+                WriteLine(PrintCenteredTitle("\t(0) - to Exit       ", StandardWidth));
+
                 WriteLine(PrintCenteredTitle("", StandardWidth));
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
-
-
+                
             default:
                 break;
         }
@@ -90,34 +116,32 @@ public class Utility
     {
         switch (inputType)
         {
-            case "choice":
+            case InputTypes.Choice:
                 Write("\n  Enter your choice\t\t: ");
                 break;
 
-            case "title":
+            case InputTypes.Title:
                 Write("\n  Enter the title of the book\t: ");
                 break;
 
             default:
                 break;
         }
-
-        string? choice = ReadLine().Trim() ?? "";
-        return choice;
+        return ReadLine()?.Trim() ?? "";
     }
 
 
-    public static void DisplayErrorOperation(string errorType, string otherVariable)
+    public static void DisplayErrorOperation(string errorType, string context = null)
     {
         switch (errorType)
         {
-            case "no result":
+            case ErrorTypes.NoResult:
                 WriteLine(
-                    $"  {AnsiColorCodes.Error}  The book \"{otherVariable}\" does not exist in the library.  " +
+                    $"  {AnsiColorCodes.Error}  The book \"{context}\" does not exist in the library.  " +
                     $"{AnsiColorCodes.Reset}");
                 break;
 
-            case "title not available":
+            case ErrorTypes.TitleUnavailable:
                 WriteLine(
                     $"  {AnsiColorCodes.Error}  This title is currently unavailable.  " +
                     $"{AnsiColorCodes.Reset}");
@@ -203,25 +227,29 @@ public class Utility
     //}
 
 
-    public static void HardCoverChangeLocation(IBook instance, string location)
+    /// <summary>Changes location only for HardCover books</summary>
+    /// <param name="instance">Book instance to modify</param>
+    /// <param name="location">New location value</param>
+    public static void ChangeLocation(IBook instance, string location)
     {
-        instance.Location = instance.GetType().Name.Equals("HardCover")
-            ? location
-            : instance.Location;
+        if (instance is HardCover hardCover)
+        {
+            hardCover.Location = location;
+        }
     }
 
-    public static void successMessage(IBook instance, string action)
+    /// <summary>Displays success message for book operations</summary>
+    /// <param name="instance">The book instance operated on</param>
+    /// <param name="action">Action performed (borrowed/returned)</param>
+    public static void SuccessMessage(IBook instance, string action)
     {
-
-        string actionFromatted =
-            action.Equals("borrowed")
-                ? $"{AnsiColorCodes.BookBorrowed} {action} {AnsiColorCodes.Reset}"
-                : $"{AnsiColorCodes.BookAvailable} {action} {AnsiColorCodes.Reset}";
-
+        string actionFormatted =
+            action.Equals(BookActions.Borrowed)
+                ? $"{AnsiColorCodes.BookBorrowed} {BookActions.Borrowed} {AnsiColorCodes.Reset}"
+                : $"{AnsiColorCodes.BookAvailable} {BookActions.Returned} {AnsiColorCodes.Reset}";
 
 
         WriteLine($"\nTitle: {instance.Title}" +
-                  $"\nItem successfully marked as {actionFromatted}");
-
+                  $"\nItem successfully marked as {actionFormatted}");
     }
 }

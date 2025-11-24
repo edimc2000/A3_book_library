@@ -171,9 +171,10 @@ internal class LibraryManager
                 case "1":
                     bookCount[0].MarkAsBorrowed();
 
-                    HardCoverChangeLocation(bookCount[0], "Client");
+                    // only affects hardcover books
+                    ChangeLocation(bookCount[0], "Client");
 
-                    successMessage(bookCount[0], "borrowed");
+                    SuccessMessage(bookCount[0], "borrowed");
                     break;
                 case "0":
                     break;
@@ -211,9 +212,10 @@ internal class LibraryManager
                 case "1":
                     bookCount[0].MarkAsReturned();
 
-                    HardCoverChangeLocation(bookCount[0], "Library");
+                    // only affects hardcover books
+                    ChangeLocation(bookCount[0], "Library");
 
-                    successMessage(bookCount[0], "returned");
+                    SuccessMessage(bookCount[0], "returned");
 
                     break;
                 case "0":

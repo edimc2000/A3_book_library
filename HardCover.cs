@@ -47,4 +47,10 @@ internal class HardCover : IBook
     {
         return Location;
     }
+    /// <summary>Changes location</summary>
+    /// /// <param name="location">new location</param>
+    //public void ChangeLocation(string location)
+    //{
+    //    Location = location;
+    //}
 }
