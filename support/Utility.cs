@@ -10,6 +10,10 @@ using static Formatting;
 /// </remarks>
 public class Utility
 {
+
+    /// <summary>// width for menu box</summary>
+    public const int StandardWidth = 47;
+    
     /// <summary>Contains menu type constants</summary>
     public static class MenuTypes
     {
@@ -32,6 +36,7 @@ public class Utility
     {
         public const string NoResult = "no result";
         public const string TitleUnavailable = "title not available";
+        public const string MultipleResult = "multiple result";
     }
 
     /// <summary>Contains book action constants</summary>
@@ -39,7 +44,7 @@ public class Utility
     {
         public const string Borrowed = "borrowed";
         public const string Returned = "returned";
-        public const string Added = "added";
+
     }
 
 
@@ -47,7 +52,6 @@ public class Utility
     /// <param name="menuType">Type of menu to display</param>
     public static void DisplayMenu(string menuType)
     {
-        const int StandardWidth = 47; // width for menu formatting
         switch (menuType)
         {
             case MenuTypes.MainMenu:
@@ -146,7 +150,7 @@ public class Utility
     /// <summary>Displays error messages with colored formatting</summary>
     /// <param name="errorType">Type of error to display</param>
     /// <param name="context">Context information for the error</param>
-    public static void DisplayErrorOperation(string errorType, string context = null)
+    public static void DisplayErrorOperation(string? errorType = null, string? context=null)
     {
         switch (errorType)
         {
@@ -159,6 +163,12 @@ public class Utility
             case ErrorTypes.TitleUnavailable:
                 WriteLine(
                     $"  {AnsiColorCodes.Error}  This title is currently unavailable.  " +
+                    $"{AnsiColorCodes.Reset}");
+                break;
+
+            case ErrorTypes.MultipleResult:
+                WriteLine(
+                    $"  {AnsiColorCodes.Error}  Multiple matches found. Please refine your search.  " +
                     $"{AnsiColorCodes.Reset}");
                 break;
 

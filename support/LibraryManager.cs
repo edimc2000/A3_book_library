@@ -1,17 +1,34 @@
-﻿using static Library.support.Utility;
+﻿using System.ComponentModel.Design;
 using static Library.support.Formatting;
+using static Library.support.LibraryManager;
+using static Library.support.Utility;
+
 namespace Library.support;
 
 internal class LibraryManager
 {
+    /// <summary>Contains book locations</summary>
+    public static class BookLocations
+    {
+        public const string Borrowed = "Client";
+        public const string Returned = "Library";
+    }
+
+    public static class BookProcesses
+    {
+        public const string BorrowTitle = "Borrow a Book";
+        public static string ReturnTitle = "Return a Book ";
+    }
+
+
     public static void AddNewBook(List<IBook> catalogue)
-        //public static string AddNewBook()
+
     {
         DisplayTitle("Add a book", "all", 46);
         bool isLooping = true;
         while (isLooping)
         {
-            string? title = GetInput("title");
+            string? title = GetInput(InputTypes.Title);
             DisplayAndAddBook(title);
             WriteLine("\n  Entry added.\n\n");
 
@@ -27,7 +44,7 @@ internal class LibraryManager
         bool isDisplayingMenu = true;
         while (isDisplayingMenu)
         {
-            string? choice = GetInput("choice");
+            string? choice = GetInput(InputTypes.Choice);
 
             switch (choice)
             {
@@ -64,7 +81,7 @@ internal class LibraryManager
         bool isDisplayingMenu = true;
         while (isDisplayingMenu)
         {
-            string? choice = GetInput("choice");
+            string? choice = GetInput(InputTypes.Choice);
             switch (choice)
             {
                 case "1":
@@ -88,7 +105,7 @@ internal class LibraryManager
     {
         if (!isSubRoutine) DisplayTitle("Find a book", "all", 46);
 
-        string? userInput = GetInput("title").ToLower();
+        string? userInput = GetInput(InputTypes.Title).ToLower();
 
         int boxWidth = 0;
         List<IBook> results;
@@ -104,13 +121,13 @@ internal class LibraryManager
 
         switch (action)
         {
-            case "borrow":
+            case MenuTypes.Borrow:
                 results = Collection.Catalogue
                     .Where(b => b.Title.ToLower().Contains(userInput) && b.IsAvailable)
                     .ToList();
                 break;
 
-            case "return":
+            case MenuTypes.Return:
                 results = Collection.Catalogue
                     .Where(b => b.Title.ToLower().Contains(userInput) && !b.IsAvailable)
                     .ToList();
@@ -158,76 +175,68 @@ internal class LibraryManager
 
     public static void Borrow()
     {
-        DisplayTitle("Borrow a book", "all", 46);
-
-        List<IBook> bookCount = Search(true, "borrow");
-        if (bookCount.Count > 1)
-            WriteLine("\nMultiple matches found. Please refine your search.");
-
-        else if (bookCount.Count == 0)
-            DisplayErrorOperation("title not available", "");
-
-        else if (bookCount.Count == 1)
-        {
-            DisplayMenu("Borrow");
-
-            string choice = GetInput("choice");
-            switch (choice)
-            {
-                case "1":
-                    bookCount[0].MarkAsBorrowed();
-
-                    // only affects hardcover books
-                    ChangeLocation(bookCount[0], "Client");
-
-                    SuccessMessage(bookCount[0], "borrowed");
-                    break;
-                case "0":
-                    break;
-                default:
-                    DisplayErrorOperation("", "");
-                    ;
-                    break;
-            }
-        }
-
+        ProcessBookOperation(BookProcesses.BorrowTitle, MenuTypes.Borrow);
     }
 
 
     public static void Return()
     {
-        DisplayTitle("Return a book", "all", 46);
+        ProcessBookOperation(BookProcesses.ReturnTitle, MenuTypes.Return);
+        
+    }
 
-        List<IBook> bookCount = Search(true, "return");
-        if (bookCount.Count > 1)
+
+    public static void ProcessBookOperation (string operationTitle, string menuItem)
+    {
+        string firstWordTitle = operationTitle.Split(" ")[0].ToLower();
+        DisplayTitle(operationTitle, "all", StandardWidth);
+        List<IBook> book = Search(true, menuItem);
+
+        if (book.Count > 1)
         {
-            WriteLine("\nMultiple matches found. Please refine your search.");
+            DisplayErrorOperation(ErrorTypes.MultipleResult, "");
         }
 
-        else if (bookCount.Count == 0)
+        else if (book.Count == 0)
         {
-            DisplayErrorOperation("title not available", "");
+            DisplayErrorOperation(ErrorTypes.TitleUnavailable, "");
         }
-        else if (bookCount.Count == 1)
+        else if (book.Count == 1)
         {
-            DisplayMenu("Return");
+            DisplayMenu(menuItem);
 
-            string choice = GetInput("choice");
+            string choice = GetInput(InputTypes.Choice);
             switch (choice)
             {
                 case "1":
-                    bookCount[0].MarkAsReturned();
 
-                    // only affects hardcover books
-                    ChangeLocation(bookCount[0], "Library");
+                    if (BookActions.Borrowed.ToLower().Contains(firstWordTitle))
+                    {
+                        ////   how to not have a magic number 
+                        book[0].MarkAsBorrowed();
 
-                    SuccessMessage(bookCount[0], "returned");
+                        // only affects hardcover books
+                        ChangeLocation(book[0], BookLocations.Borrowed);
+                        SuccessMessage(book[0], BookActions.Borrowed);
+                    }
+                    else
+                    {
+                        book[0].MarkAsReturned();
+
+                        // only affects hardcover books
+                        ChangeLocation(book[0], BookLocations.Returned);
+
+                        SuccessMessage(book[0], BookActions.Returned);
+                    }
 
                     break;
+
+
                 case "0":
                     break;
                 default:
                     DisplayErrorOperation("", "");
+                    ;
                     break;
             }
         }

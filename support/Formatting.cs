@@ -1,5 +1,12 @@
 ﻿namespace Library.support;
 
+
+/// <summary>Provides text formatting utilities for console display</summary>
+/// <remarks>
+/// <para>Author: Eddie C.</para>
+/// <para>Version: 1.0</para>
+/// <para>Since: 2025-11-24</para>
+/// </remarks>
 internal class Formatting
 {
     /// <summary> Displays formatted title with decorative borders</summary>
@@ -15,8 +22,7 @@ internal class Formatting
 
         string top = cornerLeftTop + lineBoxTop + cornerRightTop;
         string bottom = cornerLeftBottom + lineBoxTop + cornerRightBottom;
-
-
+        
         switch (cover)
         {
             case "all":
@@ -69,7 +75,10 @@ internal class Formatting
         return centeredTitle;
     }
 
-
+    /// <summary>Formats text as left-aligned within bordered display</summary>
+    /// <param name="title">Text to format</param>
+    /// <param name="width">Total width for formatting</param>
+    /// <returns>Left-aligned string with border characters</returns>
     public static string PrintLeftAlignedBordered(string title, int width)
     {
         int availableWidth = width;
