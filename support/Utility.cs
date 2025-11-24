@@ -4,75 +4,79 @@ public class Utility
 {
     public static void DisplayMenu(string menuType)
     {
+
+        int standardWidth = 47;
         switch (menuType)
         {
+
             case "Main Menu":
 
-                DisplayTitle("Main  Menu", "all", 46);
+                DisplayTitle("Main Menu", "all", standardWidth);
 
-                DisplayTitle("", "top", 46);
+                DisplayTitle("", "top", standardWidth);
                 WriteLine(string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}",
-                    PrintCenteredTitle("Type\t(1) - to Add a new book  ", 44),
-                    PrintCenteredTitle("\t(2) - to Find a book", 45),
-                    PrintCenteredTitle("\t(3) - to Borrow     ", 45),
-                    PrintCenteredTitle("\t(4) - to Return     ", 45),
-                    PrintCenteredTitle("", 46),
-                    PrintCenteredTitle("\t(0) - to Exit       ", 45)
+                    PrintCenteredTitle("Type\t(1) - to Add a new book ", standardWidth),
+                    PrintCenteredTitle("\t(2) - to Find a book", standardWidth),
+                    PrintCenteredTitle("\t(3) - to Borrow    ", standardWidth),
+                    PrintCenteredTitle("\t(4) - to Return    ", standardWidth),
+                    PrintCenteredTitle("", standardWidth),
+                    PrintCenteredTitle("\t(0) - to Exit      ", standardWidth)
                 ));
-                DisplayTitle("", "bottom", 46);
+                WriteLine(PrintCenteredTitle("", standardWidth));
+                DisplayTitle("", "bottom", standardWidth);
                 break;
 
             case "Book Type":
-                DisplayTitle("", "top", 46);
-                WriteLine(PrintCenteredTitle("Book Type", 46));
-                WriteLine(PrintCenteredTitle("", 46));
+                DisplayTitle("", "top", standardWidth);
+                WriteLine(PrintCenteredTitle("Book Type", standardWidth));
+                WriteLine(PrintCenteredTitle("", standardWidth));
                 WriteLine(string.Format("{0}\n{1}\n{2}\n{3}\n{4}",
-                    PrintCenteredTitle("Choose from the following Book Type", 46),
-                    PrintCenteredTitle("", 46),
-                    PrintCenteredTitle("Type\t(1) - for E-Book         ", 44),
-                    PrintCenteredTitle("\t(2) - for Hard Cover", 44),
-                    PrintCenteredTitle("\t(3) - for Audio Book", 44)
+                    PrintCenteredTitle("Choose from the following Book Type", standardWidth),
+                    PrintCenteredTitle("", standardWidth),
+                    PrintCenteredTitle("Type\t(1) - for E-Book        ", standardWidth),
+                    PrintCenteredTitle("\t(2) - for Hard Cover", standardWidth),
+                    PrintCenteredTitle("\t(3) - for Audio Book", standardWidth)
                 ));
 
-                WriteLine(PrintCenteredTitle("", 46));
-                DisplayTitle("", "bottom", 46);
+                WriteLine(PrintCenteredTitle("", standardWidth));
+                DisplayTitle("", "bottom", standardWidth);
                 break;
 
             case "Add More":
-                DisplayTitle("", "top", 46);
-                WriteLine(PrintCenteredTitle("Add a book", 46));
+                DisplayTitle("", "top", standardWidth);
+                WriteLine(PrintCenteredTitle("Add a book", standardWidth));
                 WriteLine(string.Format("{0}\n{1}\n{2}\n{3}",
-                    PrintCenteredTitle("Choose from the following Options", 46),
-                    PrintCenteredTitle("", 46),
-                    PrintCenteredTitle("Type\t(1) - to Add More        ", 44),
-                    PrintCenteredTitle("\t(0) - to Exit       ", 44)
+                    PrintCenteredTitle("Choose from the following Options", standardWidth),
+                    PrintCenteredTitle("", standardWidth),
+                    PrintCenteredTitle("Type\t(1) - to Add More       ", standardWidth),
+                    PrintCenteredTitle("\t(0) - to Exit       ", standardWidth)
                 ));
-                WriteLine(PrintCenteredTitle("", 46));
-                DisplayTitle("", "bottom", 46);
+                WriteLine(PrintCenteredTitle("", standardWidth));
+                DisplayTitle("", "bottom", standardWidth);
                 break;
 
             case "Borrow":
-                DisplayTitle("", "top", 46);
-                WriteLine(PrintCenteredTitle("Choose from the following Options", 46));
+                DisplayTitle("", "top", standardWidth);
+                WriteLine(PrintCenteredTitle("Choose from the following Options", standardWidth));
                 WriteLine(string.Format("{0}\n{1}\n{2}",
-                    PrintCenteredTitle("", 46),
-                    PrintCenteredTitle("Type\t(1) - Mark as borrowed   ", 44),
-                    PrintCenteredTitle("\t(0) - to Exit       ", 44)
+                    PrintCenteredTitle("", standardWidth),
+                    PrintCenteredTitle("Type\t(1) - Mark as borrowed  ", standardWidth),
+                    PrintCenteredTitle("\t(0) - to Exit       ", standardWidth)
                 ));
-                WriteLine(PrintCenteredTitle("", 46));
-                DisplayTitle("", "bottom", 46);
+                WriteLine(PrintCenteredTitle("", standardWidth));
+                DisplayTitle("", "bottom", standardWidth);
                 break;
 
             case "Return":
-                DisplayTitle("", "top", 46);
-                WriteLine(PrintCenteredTitle("Choose from the following Options", 46));
+                DisplayTitle("", "top", standardWidth);
+                WriteLine(PrintCenteredTitle("Choose from the following Options", standardWidth));
                 WriteLine(string.Format("{0}\n{1}\n{2}",
-                    PrintCenteredTitle("", 46),
-                    PrintCenteredTitle("Type\t(1) - Mark as returned   ", 44),
-                    PrintCenteredTitle("\t(0) - to Exit       ", 44)
+                    PrintCenteredTitle("", standardWidth),
+                    PrintCenteredTitle("Type\t(1) - Mark as returned  ", standardWidth),
+                    PrintCenteredTitle("\t(0) - to Exit       ", standardWidth)
                 ));
-                WriteLine(PrintCenteredTitle("", 46));
-                DisplayTitle("", "bottom", 46);
+                WriteLine(PrintCenteredTitle("", standardWidth));
+                DisplayTitle("", "bottom", standardWidth);
                 break;
 
 
@@ -146,7 +150,7 @@ public class Utility
         {
             case "all":
                 WriteLine();
-                string middle = PrintCenteredTitle(title, 46);
+                string middle = PrintCenteredTitle(title, charWdith);
                 ApplyHighlighter(top);
                 ApplyHighlighter(middle);
                 ApplyHighlighter(bottom);
