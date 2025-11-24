@@ -5,7 +5,7 @@ namespace Library;
 
 internal class Program
 {
-    //public static List<IBook> catalogue = new List<IBook>();
+    //public static List<IBook> Catalogue = new List<IBook>();
 
 
     private static void Main(string[] args)
@@ -29,7 +29,7 @@ internal class Program
             switch (choice)
             {
                 case "1": // add a new book 
-                    AddNewBook(Collection.catalogue);
+                    AddNewBook(Collection.Catalogue);
                     isDisplayingMenu = true;
                     break;
 

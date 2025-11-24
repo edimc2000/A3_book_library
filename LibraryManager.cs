@@ -30,19 +30,19 @@ internal class LibraryManager
             {
                 case "1":
                     Ebook eBook = new(title);
-                    Collection.catalogue.Add(eBook);
+                    Collection.Catalogue.Add(eBook);
                     isDisplayingMenu = false;
                     break;
 
                 case "2":
                     HardCover book = new(title);
-                    Collection.catalogue.Add(book);
+                    Collection.Catalogue.Add(book);
                     isDisplayingMenu = false;
                     break;
 
                 case "3":
                     AudioBook audioBook = new(title);
-                    Collection.catalogue.Add(audioBook);
+                    Collection.Catalogue.Add(audioBook);
                     isDisplayingMenu = false;
                     break;
 
@@ -89,7 +89,7 @@ internal class LibraryManager
         List<IBook> results;
 
         // get the max width for the search result items box
-        foreach (IBook book in Collection.catalogue)
+        foreach (IBook book in Collection.Catalogue)
         {
             string availableOrBorrowed = book.IsAvailable ? "available" : "borrowed";
             string message = $"The book \"{book.Title}\" is {availableOrBorrowed}";
@@ -100,20 +100,20 @@ internal class LibraryManager
         switch (action)
         {
             case "borrow":
-                results = Collection.catalogue
+                results = Collection.Catalogue
                     .Where(b => b.Title.ToLower().Contains(userInput) && b.IsAvailable)
                     .ToList();
                 break;
 
             case "return":
-                results = Collection.catalogue
+                results = Collection.Catalogue
                     .Where(b => b.Title.ToLower().Contains(userInput) && !b.IsAvailable)
                     .ToList();
                 break;
 
 
             default:
-                results = Collection.catalogue
+                results = Collection.Catalogue
                     .Where(b => b.Title.ToLower().Contains(userInput))
                     .ToList();
                 break;
