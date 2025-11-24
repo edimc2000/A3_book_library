@@ -1,4 +1,5 @@
 ﻿namespace Library.support;
+using static Library.support.Formatting;
 
 public class Utility
 {
@@ -67,6 +68,8 @@ public class Utility
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
 
+            // this is a demo that the program can be made to prompt user to add more books
+            // instead of returning to main menu directly
             case MenuTypes.AddMore:
                 DisplayTitle("", "top", StandardWidth);
                 
@@ -150,88 +153,10 @@ public class Utility
         }
     }
 
-    /// <summary> Displays formatted title with decorative borders</summary>
-    /// <param name="title">The title text to display</param>
-    /// <param name="cover">Border type: "all", "top", or default for bottom</param>
-    public static void DisplayTitle(string title, string cover, int charWdith)
-    {
-        string lineBoxTop = new('─', charWdith);
-        const string cornerLeftTop = " ┌";
-        const string cornerRightTop = "┐ ";
-        const string cornerLeftBottom = " └";
-        const string cornerRightBottom = "┘ ";
-
-        string top = cornerLeftTop + lineBoxTop + cornerRightTop;
-        string bottom = cornerLeftBottom + lineBoxTop + cornerRightBottom;
 
 
-        switch (cover)
-        {
-            case "all":
-                WriteLine();
-                string middle = PrintCenteredTitle(title, charWdith);
-                ApplyHighlighter(top);
-                ApplyHighlighter(middle);
-                ApplyHighlighter(bottom);
-                break;
-
-            case "top":
-                WriteLine(top);
-                break;
-
-            default:
-                WriteLine(bottom);
-                break;
-        }
-    }
-
-    /// <summary>Centers text within a specified width for display formatting</summary>
-    /// <param name="title">Text to center</param>
-    /// <param name="width">Total width for centering</param>
-    /// <returns>Formatted centered string with border characters</returns>
-    public static string PrintCenteredTitle(string title, int width)
-    {
-        int availableWidth = width;
-
-        string centeredTitle = string.Format(" │{0,-" + availableWidth + "}│ ",
-            title.PadLeft((availableWidth + title.Length) / 2).PadRight(availableWidth));
-        return centeredTitle;
-    }
 
 
-    public static string PrintLeftAlignedBordered(string title, int width)
-    {
-        int availableWidth = width;
-        string borderedAlignedLeft = string.Format(" │  {0,-" + availableWidth + "}│ ", title);
-        return borderedAlignedLeft;
-    }
-
-
-    /// <summary>Applies ANSI color highlighting to text for console display</summary>
-    /// <param name="text">Text to apply highlighting to</param>
-    public static void ApplyHighlighter(string text)
-    {
-        text = AnsiColorCodes.Background + AnsiColorCodes.Foreground + text + AnsiColorCodes.Reset;
-        WriteLine(text);
-    }
-
-    //public static bool IsDouble(string input)
-    //{
-    //    double result;
-    //    return double.TryParse(input, out result);
-    //}
-
-
-    /// <summary>Changes location only for HardCover books</summary>
-    /// <param name="instance">Book instance to modify</param>
-    /// <param name="location">New location value</param>
-    public static void ChangeLocation(IBook instance, string location)
-    {
-        if (instance is HardCover hardCover)
-        {
-            hardCover.Location = location;
-        }
-    }
 
     /// <summary>Displays success message for book operations</summary>
     /// <param name="instance">The book instance operated on</param>

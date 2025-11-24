@@ -13,6 +13,9 @@ internal class LibraryManager
             string? title = GetInput("title");
             DisplayAndAddBook(title);
             WriteLine("\n  Entry added.\n\n");
+
+            // this is a demo that the program can be made to prompt user to add more books
+            // instead of returning to main menu directly
             isLooping = AddMoreOrExit();
         }
     }
@@ -54,6 +57,8 @@ internal class LibraryManager
 
     private static bool AddMoreOrExit()
     {
+        // this is a demo that the program can be made to prompt user to add more books
+        // instead of returning to main menu directly
         DisplayMenu("Add More");
         bool isDisplayingMenu = true;
         while (isDisplayingMenu)
