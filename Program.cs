@@ -35,7 +35,7 @@ internal class Program
                     break;
 
                 case "2": // find a book
-                    Search(false, "search");
+                    Search(false, BookActions.Find);
                     isDisplayingMenu = true;
                     break;
 

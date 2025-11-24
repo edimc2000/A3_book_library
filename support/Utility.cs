@@ -44,6 +44,7 @@ public class Utility
     {
         public const string Borrowed = "borrowed";
         public const string Returned = "returned";
+        public const string Find = "search";
 
     }
 

@@ -16,17 +16,27 @@ internal class LibraryManager
 
     public static class BookProcesses
     {
+        public const string AddTitle = "Add a Book";
         public const string BorrowTitle = "Borrow a Book";
-        public static string ReturnTitle = "Return a Book ";
+        public const string ReturnTitle = "Return a Book ";
+        public const string SearchTitle = "Find a Book ";
+
+        
+        public const string ConfirmProcess = "1";
+        public const string ExitProcess = "0";
+        
+        public const string TypeEbook = "1"; 
+        public const string TypeHardCover = "2";
+        public const string TypeAudioBook = "3";
     }
 
 
     public static void AddNewBook(List<IBook> catalogue)
 
     {
-        DisplayTitle("Add a book", "all", 46);
-        bool isLooping = true;
-        while (isLooping)
+        DisplayTitle(BookProcesses.AddTitle, "all", StandardWidth);
+        bool addMore = true;
+        while (addMore)
         {
             string? title = GetInput(InputTypes.Title);
             DisplayAndAddBook(title);
@@ -34,13 +44,13 @@ internal class LibraryManager
 
             // this is a demo that the program can be made to prompt user to add more books
             // instead of returning to main menu directly
-            isLooping = AddMoreOrExit();
+            addMore = AddMoreOrExit();
         }
     }
 
     private static void DisplayAndAddBook(string title)
     {
-        DisplayMenu("Book Type");
+        DisplayMenu(MenuTypes.BookType);
         bool isDisplayingMenu = true;
         while (isDisplayingMenu)
         {
@@ -48,26 +58,26 @@ internal class LibraryManager
 
             switch (choice)
             {
-                case "1":
+                case BookProcesses.TypeEbook:
                     Ebook eBook = new(title);
                     Collection.Catalogue.Add(eBook);
                     isDisplayingMenu = false;
                     break;
 
-                case "2":
+                case BookProcesses.TypeHardCover:
                     HardCover book = new(title);
                     Collection.Catalogue.Add(book);
                     isDisplayingMenu = false;
                     break;
 
-                case "3":
+                case BookProcesses.TypeAudioBook:
                     AudioBook audioBook = new(title);
                     Collection.Catalogue.Add(audioBook);
                     isDisplayingMenu = false;
                     break;
 
                 default:
-                    DisplayErrorOperation("", "");
+                    DisplayErrorOperation();
                     break;
             }
         }
@@ -84,15 +94,15 @@ internal class LibraryManager
             string? choice = GetInput(InputTypes.Choice);
             switch (choice)
             {
-                case "1":
+                case BookProcesses.ConfirmProcess:
                     return true;
 
-                case "0":
+                case BookProcesses.ExitProcess:
                     isDisplayingMenu = false;
                     break;
 
                 default:
-                    DisplayErrorOperation("", "");
+                    DisplayErrorOperation();
                     break;
             }
         }
@@ -103,7 +113,7 @@ internal class LibraryManager
 
     public static List<IBook> Search(bool isSubRoutine, string action)
     {
-        if (!isSubRoutine) DisplayTitle("Find a book", "all", 46);
+        if (!isSubRoutine) DisplayTitle(BookProcesses.SearchTitle, "all", StandardWidth);
 
         string? userInput = GetInput(InputTypes.Title).ToLower();
 
@@ -167,7 +177,7 @@ internal class LibraryManager
             DisplayTitle("", "bottom", boxWidth + 2);
         }
 
-        if (results.Count == 0 && action.Equals("search"))
+        if (results.Count == 0 && action.Equals(BookActions.Find))
             DisplayErrorOperation("no result", userInput);
 
         return results;
@@ -205,35 +215,38 @@ internal class LibraryManager
         {
             DisplayMenu(menuItem);
 
+            IBook targetBook = book[0];
+
+
             string choice = GetInput(InputTypes.Choice);
             switch (choice)
             {
-                case "1":
-
+                case BookProcesses.ConfirmProcess:
                     if (BookActions.Borrowed.ToLower().Contains(firstWordTitle))
                     {
                         ////   how to not have a magic number 
-                        book[0].MarkAsBorrowed();
+                        targetBook.MarkAsBorrowed();
 
                         // only affects hardcover books
-                        ChangeLocation(book[0], BookLocations.Borrowed);
-                        SuccessMessage(book[0], BookActions.Borrowed);
+                        ChangeLocation(targetBook, BookLocations.Borrowed);
+                        SuccessMessage(targetBook, BookActions.Borrowed);
                     }
                     else
                     {
-                        book[0].MarkAsReturned();
+                        targetBook.MarkAsReturned();
 
                         // only affects hardcover books
-                        ChangeLocation(book[0], BookLocations.Returned);
+                        ChangeLocation(targetBook, BookLocations.Returned);
 
-                        SuccessMessage(book[0], BookActions.Returned);
+                        SuccessMessage(targetBook, BookActions.Returned);
                     }
 
                     break;
 
 
-                case "0":
+                case BookProcesses.ExitProcess:
                     break;
+
                 default:
                     DisplayErrorOperation("", "");
                     ;
