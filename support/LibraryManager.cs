@@ -1,7 +1,5 @@
-﻿
-using static Library.Utility;
-
-namespace Library;
+﻿using static Library.support.Utility;
+namespace Library.support;
 
 internal class LibraryManager
 {

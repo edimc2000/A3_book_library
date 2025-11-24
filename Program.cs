@@ -1,5 +1,5 @@
-﻿using static Library.Utility;
-using static Library.LibraryManager;
+﻿using static Library.support.Utility;
+using static Library.support.LibraryManager;
 
 
 namespace Library;

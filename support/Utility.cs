@@ -1,4 +1,4 @@
-﻿namespace Library;
+﻿namespace Library.support;
 
 public class Utility
 {

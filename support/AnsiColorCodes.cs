@@ -1,5 +1,4 @@
 ﻿namespace Library;
-
 /// <summary>ANSI escape codes for console coloring</summary>
 /// <remarks>
 /// <para>Author: Eddie C.</para>
