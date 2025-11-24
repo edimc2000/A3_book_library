@@ -1,4 +1,5 @@
-﻿using static Library.Utility;
+﻿
+using static Library.Utility;
 
 namespace Library;
 

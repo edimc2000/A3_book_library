@@ -1,6 +1,7 @@
 ﻿using static Library.Utility;
 using static Library.LibraryManager;
 
+
 namespace Library;
 
 internal class Program
