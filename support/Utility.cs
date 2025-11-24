@@ -10,10 +10,9 @@ using static Formatting;
 /// </remarks>
 public class Utility
 {
-
     /// <summary>// width for menu box</summary>
     public const int StandardWidth = 47;
-    
+
     /// <summary>Contains menu type constants</summary>
     public static class MenuTypes
     {
@@ -45,9 +44,7 @@ public class Utility
         public const string Borrowed = "borrowed";
         public const string Returned = "returned";
         public const string Find = "search";
-
     }
-
 
     /// <summary>Displays formatted menu based on menu type</summary>
     /// <param name="menuType">Type of menu to display</param>
@@ -151,7 +148,7 @@ public class Utility
     /// <summary>Displays error messages with colored formatting</summary>
     /// <param name="errorType">Type of error to display</param>
     /// <param name="context">Context information for the error</param>
-    public static void DisplayErrorOperation(string? errorType = null, string? context=null)
+    public static void DisplayErrorOperation(string? errorType = null, string? context = null)
     {
         switch (errorType)
         {

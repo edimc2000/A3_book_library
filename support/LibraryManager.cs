@@ -1,10 +1,15 @@
-﻿using System.ComponentModel.Design;
-using static Library.support.Formatting;
+﻿using static Library.support.Formatting;
 using static Library.support.LibraryManager;
 using static Library.support.Utility;
 
 namespace Library.support;
 
+/// <summary>Manages library operations including adding, borrowing, and returning books</summary>
+/// <remarks>
+/// <para>Author: Eddie C.</para>
+/// <para>Version: 1.0</para>
+/// <para>Since: 2025-11-22</para>
+/// </remarks>
 internal class LibraryManager
 {
     /// <summary>Contains book locations</summary>
@@ -14,6 +19,7 @@ internal class LibraryManager
         public const string Returned = "Library";
     }
 
+    /// <summary>Contains book process constants and titles</summary>
     public static class BookProcesses
     {
         public const string AddTitle = "Add a Book";
@@ -21,16 +27,18 @@ internal class LibraryManager
         public const string ReturnTitle = "Return a Book ";
         public const string SearchTitle = "Find a Book ";
 
-        
+
         public const string ConfirmProcess = "1";
         public const string ExitProcess = "0";
-        
-        public const string TypeEbook = "1"; 
+
+        public const string TypeEbook = "1";
         public const string TypeHardCover = "2";
         public const string TypeAudioBook = "3";
     }
 
-
+    /// <summary>Adds new books to the library catalogue</summary>
+    /// <param name="catalogue">The book catalogue to add to</param>
+    /// <remarks>Allows adding multiple books in sequence</remarks
     public static void AddNewBook(List<IBook> catalogue)
 
     {
@@ -48,6 +56,8 @@ internal class LibraryManager
         }
     }
 
+    /// <summary>Displays book type menu and adds selected book type</summary>
+    /// <param name="title">Title of the book to add</param>
     private static void DisplayAndAddBook(string title)
     {
         DisplayMenu(MenuTypes.BookType);
@@ -83,6 +93,8 @@ internal class LibraryManager
         }
     }
 
+    /// <summary>Prompts user to add more books or exit</summary>
+    /// <returns>True if user wants to add more books, false to exit</returns>
     private static bool AddMoreOrExit()
     {
         // this is a demo that the program can be made to prompt user to add more books
@@ -111,6 +123,10 @@ internal class LibraryManager
     }
 
 
+    /// <summary>Searches for books in the catalogue</summary>
+    /// <param name="isSubRoutine">If true, skips title display</param>
+    /// <param name="action">Type of search action</param>
+    /// <returns>List of matching books</returns>
     public static List<IBook> Search(bool isSubRoutine, string action)
     {
         if (!isSubRoutine) DisplayTitle(BookProcesses.SearchTitle, "all", StandardWidth);
@@ -183,20 +199,22 @@ internal class LibraryManager
         return results;
     }
 
+    /// <summary>Processes book borrowing operation</summary>
     public static void Borrow()
     {
         ProcessBookOperation(BookProcesses.BorrowTitle, MenuTypes.Borrow);
     }
 
-
+    /// <summary>Processes book return operation</summary>
     public static void Return()
     {
         ProcessBookOperation(BookProcesses.ReturnTitle, MenuTypes.Return);
-        
     }
 
-
-    public static void ProcessBookOperation (string operationTitle, string menuItem)
+    /// <summary>Processes book operations (borrow/return)</summary>
+    /// <param name="operationTitle">Title of the operation</param>
+    /// <param name="menuItem">Menu item to display</param>
+    public static void ProcessBookOperation(string operationTitle, string menuItem)
     {
         string firstWordTitle = operationTitle.Split(" ")[0].ToLower();
         DisplayTitle(operationTitle, "all", StandardWidth);
@@ -224,9 +242,7 @@ internal class LibraryManager
                 case BookProcesses.ConfirmProcess:
                     if (BookActions.Borrowed.ToLower().Contains(firstWordTitle))
                     {
-                        ////   how to not have a magic number 
                         targetBook.MarkAsBorrowed();
-
                         // only affects hardcover books
                         ChangeLocation(targetBook, BookLocations.Borrowed);
                         SuccessMessage(targetBook, BookActions.Borrowed);
@@ -234,15 +250,12 @@ internal class LibraryManager
                     else
                     {
                         targetBook.MarkAsReturned();
-
                         // only affects hardcover books
                         ChangeLocation(targetBook, BookLocations.Returned);
-
                         SuccessMessage(targetBook, BookActions.Returned);
                     }
 
                     break;
-
 
                 case BookProcesses.ExitProcess:
                     break;
