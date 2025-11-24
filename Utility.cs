@@ -217,7 +217,7 @@ public class Utility
 
 
         WriteLine($"\nTitle: {instance.Title}" +
-                  $"\nItem successfully marked as {actionFromatted}.");
+                  $"\nItem successfully marked as {actionFromatted}");
 
     }
 }

@@ -85,11 +85,10 @@ internal class LibraryManager
 
         string? userInput = GetInput("title").ToLower();
 
-        int counter = 0;
         int boxWidth = 0;
         List<IBook> results;
 
-        // get the max width for the search result items 
+        // get the max width for the search result items box
         foreach (IBook book in Collection.catalogue)
         {
             string availableOrBorrowed = book.isAvailable ? "available" : "borrowed";
@@ -134,8 +133,8 @@ internal class LibraryManager
             string availableOrBorrowed = book.isAvailable ? "available" : "borrowed";
             string message = $"The book \"{book.Title}\" is {availableOrBorrowed}";
 
-            //DisplayTitle("", "top", boxWidth);
             DisplayTitle("", "top", boxWidth + 2);
+
             WriteLine(PrintLeftAlignedBordered(bookTitle, boxWidth));
             WriteLine(PrintLeftAlignedBordered(bookType, boxWidth));
             WriteLine(PrintLeftAlignedBordered(bookStatus, boxWidth));
@@ -143,10 +142,7 @@ internal class LibraryManager
             WriteLine(PrintLeftAlignedBordered("", boxWidth));
             WriteLine(PrintLeftAlignedBordered(message, boxWidth));
 
-
             DisplayTitle("", "bottom", boxWidth + 2);
-
-            counter++;
         }
 
         if (results.Count == 0 && action.Equals("search"))
@@ -165,45 +161,30 @@ internal class LibraryManager
 
         else if (bookCount.Count == 0)
             DisplayErrorOperation("title not available", "");
-        try
+
+        else if (bookCount.Count == 1)
         {
-            if (bookCount.Count == 1)
+            DisplayMenu("Borrow");
+
+            string choice = GetInput("choice");
+            switch (choice)
             {
-                DisplayMenu("Borrow");
+                case "1":
+                    bookCount[0].MarkAsBorrowed();
 
-                string choice = GetInput("choice");
-                switch (choice)
-                {
-                    case "1":
-                        bookCount[0].MarkAsBorrowed();
+                    HardCoverChangeLocation(bookCount[0], "Client");
 
-
-                        //bookCount[0].Location = bookCount[0].GetType().Name.Equals("HardCover")
-                        //    ? "Client"
-                        //    : bookCount[0].Location;
-
-
-                        HardCoverChangeLocation(bookCount[0], "Client");
-
-                        //WriteLine($"\nTitle: {bookCount[0].Title}" +
-                        //          $"\nItem successfully marked as borrowed.");
-
-                        successMessage(bookCount[0], "borrowed");
-                        break;
-                    case "0":
-                        break;
-                    default:
-                        DisplayErrorOperation("", "");
-                        ;
-                        break;
-                }
+                    successMessage(bookCount[0], "borrowed");
+                    break;
+                case "0":
+                    break;
+                default:
+                    DisplayErrorOperation("", "");
+                    ;
+                    break;
             }
         }
-        catch
 
-        {
-            DisplayErrorOperation("title not available", "");
-        }
     }
 
 
@@ -213,48 +194,35 @@ internal class LibraryManager
 
         List<IBook> bookCount = Search(true, "return");
         if (bookCount.Count > 1)
+        {
             WriteLine("\nMultiple matches found. Please refine your search.");
+        }
 
         else if (bookCount.Count == 0)
+        {
             DisplayErrorOperation("title not available", "");
-        else
-            try
+        }
+        else if (bookCount.Count == 1)
+        {
+            DisplayMenu("Return");
+
+            string choice = GetInput("choice");
+            switch (choice)
             {
-                if (bookCount.Count == 1)
-                {
-                    DisplayMenu("Return");
+                case "1":
+                    bookCount[0].MarkAsReturned();
 
-                    string choice = GetInput("choice");
-                    switch (choice)
-                    {
-                        case "1":
-                            bookCount[0].MarkAsReturned();
+                    HardCoverChangeLocation(bookCount[0], "Library");
 
+                    successMessage(bookCount[0], "returned");
 
-                            //bookCount[0].Location = bookCount[0].GetType().Name.Equals("HardCover")
-                            //    ? "Library"
-                            //    : bookCount[0].Location;
-
-                            HardCoverChangeLocation(bookCount[0], "Library");
-
-                            //WriteLine($"\nTitle: {bookCount[0].Title}" +
-                            //          $"\nItem successfully marked as returned.");
-
-                            successMessage(bookCount[0], "returned");
-
-                            break;
-                        case "0":
-                            break;
-                        default:
-                            DisplayErrorOperation("", "");
-                            break;
-                    }
-                }
+                    break;
+                case "0":
+                    break;
+                default:
+                    DisplayErrorOperation("", "");
+                    break;
             }
-            catch
-
-            {
-                DisplayErrorOperation("title not available", "");
-            }
+        }
     }
 }
