@@ -49,8 +49,7 @@ public class Utility
                 WriteLine(PrintCenteredTitle("\t(4) - to Return    ", StandardWidth));
                 WriteLine(PrintCenteredTitle("", StandardWidth));
                 WriteLine(PrintCenteredTitle("\t(0) - to Exit      ", StandardWidth));
-
-                WriteLine(PrintCenteredTitle("", StandardWidth));
+                
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
 
@@ -64,8 +63,7 @@ public class Utility
                 WriteLine(PrintCenteredTitle("Type\t(1) - for E-Book        ", StandardWidth));
                 WriteLine(PrintCenteredTitle("\t(2) - for Hard Cover", StandardWidth));
                 WriteLine(PrintCenteredTitle("\t(3) - for Audio Book", StandardWidth));
-
-                WriteLine(PrintCenteredTitle("", StandardWidth));
+                
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
 
@@ -77,20 +75,18 @@ public class Utility
                 WriteLine(PrintCenteredTitle("", StandardWidth));
                 WriteLine(PrintCenteredTitle("Type\t(1) - to Add More       ", StandardWidth));
                 WriteLine(PrintCenteredTitle("\t(0) - to Exit       ", StandardWidth));
-
-                WriteLine(PrintCenteredTitle("", StandardWidth));
+                
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
 
             case MenuTypes.Borrow:
                 DisplayTitle("", "top", StandardWidth);
-                WriteLine(PrintCenteredTitle("Choose from the following Options", StandardWidth));
 
+                WriteLine(PrintCenteredTitle("Choose from the following Options", StandardWidth));
                 WriteLine(PrintCenteredTitle("", StandardWidth));
                 WriteLine(PrintCenteredTitle("Type\t(1) - Mark as borrowed  ", StandardWidth));
                 WriteLine(PrintCenteredTitle("\t(0) - to Exit       ", StandardWidth));
-
-                WriteLine(PrintCenteredTitle("", StandardWidth));
+                
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
 
@@ -101,8 +97,7 @@ public class Utility
                 WriteLine(PrintCenteredTitle("", StandardWidth));
                 WriteLine(PrintCenteredTitle("Type\t(1) - Mark as returned  ", StandardWidth));
                 WriteLine(PrintCenteredTitle("\t(0) - to Exit       ", StandardWidth));
-
-                WriteLine(PrintCenteredTitle("", StandardWidth));
+                
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
                 
