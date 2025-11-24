@@ -91,7 +91,7 @@ internal class LibraryManager
         // get the max width for the search result items box
         foreach (IBook book in Collection.catalogue)
         {
-            string availableOrBorrowed = book.isAvailable ? "available" : "borrowed";
+            string availableOrBorrowed = book.IsAvailable ? "available" : "borrowed";
             string message = $"The book \"{book.Title}\" is {availableOrBorrowed}";
             if (message.Length > boxWidth)
                 boxWidth = message.Length + 2;
@@ -101,13 +101,13 @@ internal class LibraryManager
         {
             case "borrow":
                 results = Collection.catalogue
-                    .Where(b => b.Title.ToLower().Contains(userInput) && b.isAvailable)
+                    .Where(b => b.Title.ToLower().Contains(userInput) && b.IsAvailable)
                     .ToList();
                 break;
 
             case "return":
                 results = Collection.catalogue
-                    .Where(b => b.Title.ToLower().Contains(userInput) && !b.isAvailable)
+                    .Where(b => b.Title.ToLower().Contains(userInput) && !b.IsAvailable)
                     .ToList();
                 break;
 
@@ -128,9 +128,9 @@ internal class LibraryManager
         {
             string bookTitle = $"Title {":".PadLeft(5)} {book.Title}";
             string bookType = $"Book Type : {book.GetType().Name}";
-            string bookStatus = $"Available : {book.isAvailable}";
+            string bookStatus = $"Available : {book.IsAvailable}";
             string bookLocation = $"Location  : {book.GetLocation()}";
-            string availableOrBorrowed = book.isAvailable ? "available" : "borrowed";
+            string availableOrBorrowed = book.IsAvailable ? "available" : "borrowed";
             string message = $"The book \"{book.Title}\" is {availableOrBorrowed}";
 
             DisplayTitle("", "top", boxWidth + 2);

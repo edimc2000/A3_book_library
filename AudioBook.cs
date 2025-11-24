@@ -4,13 +4,13 @@ internal class AudioBook : IBook
 {
     public void MarkAsBorrowed()
     {
-        isAvailable = false;
+        IsAvailable = false;
     }
 
     public void MarkAsReturned()
 
     {
-        isAvailable = true;
+        IsAvailable = true;
     }
 
     public string GetLocation()
@@ -21,13 +21,13 @@ internal class AudioBook : IBook
     public string? Title { get; set; }
 
     public string Location { get; set; }
-    public bool isAvailable { get; set; }
+    public bool IsAvailable { get; set; }
 
 
     public AudioBook(string title)
     {
         Title = title;
         Location = "Web";
-        isAvailable = true;
+        IsAvailable = true;
     }
 }

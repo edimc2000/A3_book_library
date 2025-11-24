@@ -192,11 +192,11 @@ public class Utility
         WriteLine(text);
     }
 
-    public static bool IsDouble(string input)
-    {
-        double result;
-        return double.TryParse(input, out result);
-    }
+    //public static bool IsDouble(string input)
+    //{
+    //    double result;
+    //    return double.TryParse(input, out result);
+    //}
 
 
     public static void HardCoverChangeLocation(IBook instance, string location)
@@ -211,8 +211,8 @@ public class Utility
 
         string actionFromatted =
             action.Equals("borrowed")
-                ? $"{AnsiColorCodes.GeneralBlue} {action} {AnsiColorCodes.Reset}"
-                : $"{AnsiColorCodes.GeneralGreen} {action} {AnsiColorCodes.Reset}";
+                ? $"{AnsiColorCodes.BookBorrowed} {action} {AnsiColorCodes.Reset}"
+                : $"{AnsiColorCodes.BookAvailable} {action} {AnsiColorCodes.Reset}";
 
 
 

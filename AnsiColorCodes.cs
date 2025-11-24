@@ -15,9 +15,6 @@ internal static class AnsiColorCodes
     /// <summary> Red font and white background for error messages</summary>
     public const string Error = "\e[48;2;255;255;255;38;2;255;0;0m";
 
-    /// <summary>Green font and white background for results </summary>
-    public const string Result = "\e[48;2;255;255;255;38;2;0;128;0m";
-
     /// <summary> Light blue background color </summary>
     public const string Background = "\e[48;2;26;132;184m";
 
@@ -25,8 +22,8 @@ internal static class AnsiColorCodes
     public const string Foreground = "\e[37m";
 
     /// <summary>Bright green font and white background for success messages</summary>
-    public const string GeneralGreen = "\e[48;2;255;255;255;38;2;0;102;0m";
+    public const string BookAvailable = "\e[48;2;255;255;255;38;2;0;102;0m";
 
     /// <summary>Blue font and white background for general messages</summary>
-    public const string GeneralBlue = "\e[48;2;255;255;255;38;2;0;0;255m";
+    public const string BookBorrowed = "\e[48;2;255;255;255;38;2;0;0;255m";
 }
