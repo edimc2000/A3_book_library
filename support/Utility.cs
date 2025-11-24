@@ -1,8 +1,16 @@
 ﻿namespace Library.support;
-using static Library.support.Formatting;
 
+using static Formatting;
+
+/// <summary>Provides utility methods for library operations</summary>
+/// <remarks>
+/// <para>Author: Eddie C.</para>
+/// <para>Version: 1.1</para>
+/// <para>Since: 2025-11-22</para>
+/// </remarks>
 public class Utility
 {
+    /// <summary>Contains menu type constants</summary>
     public static class MenuTypes
     {
         public const string MainMenu = "Main Menu";
@@ -12,18 +20,21 @@ public class Utility
         public const string Return = "Return";
     }
 
+    /// <summary>Contains input type constants</summary>
     public static class InputTypes
     {
         public const string Choice = "choice";
         public const string Title = "title";
     }
 
+    /// <summary>Contains error type constants</summary>
     public static class ErrorTypes
     {
         public const string NoResult = "no result";
         public const string TitleUnavailable = "title not available";
     }
 
+    /// <summary>Contains book action constants</summary>
     public static class BookActions
     {
         public const string Borrowed = "borrowed";
@@ -32,7 +43,8 @@ public class Utility
     }
 
 
-
+    /// <summary>Displays formatted menu based on menu type</summary>
+    /// <param name="menuType">Type of menu to display</param>
     public static void DisplayMenu(string menuType)
     {
         const int StandardWidth = 47; // width for menu formatting
@@ -50,13 +62,13 @@ public class Utility
                 WriteLine(PrintCenteredTitle("\t(4) - to Return    ", StandardWidth));
                 WriteLine(PrintCenteredTitle("", StandardWidth));
                 WriteLine(PrintCenteredTitle("\t(0) - to Exit      ", StandardWidth));
-                
+
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
 
             case MenuTypes.BookType:
                 DisplayTitle("", "top", StandardWidth);
-                
+
                 WriteLine(PrintCenteredTitle("Book Type", StandardWidth));
                 WriteLine(PrintCenteredTitle("", StandardWidth));
                 WriteLine(PrintCenteredTitle("Choose from the following Book Type", StandardWidth));
@@ -64,7 +76,7 @@ public class Utility
                 WriteLine(PrintCenteredTitle("Type\t(1) - for E-Book        ", StandardWidth));
                 WriteLine(PrintCenteredTitle("\t(2) - for Hard Cover", StandardWidth));
                 WriteLine(PrintCenteredTitle("\t(3) - for Audio Book", StandardWidth));
-                
+
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
 
@@ -72,13 +84,13 @@ public class Utility
             // instead of returning to main menu directly
             case MenuTypes.AddMore:
                 DisplayTitle("", "top", StandardWidth);
-                
+
                 WriteLine(PrintCenteredTitle("Add a book", StandardWidth));
                 WriteLine(PrintCenteredTitle("Choose from the following Options", StandardWidth));
                 WriteLine(PrintCenteredTitle("", StandardWidth));
                 WriteLine(PrintCenteredTitle("Type\t(1) - to Add More       ", StandardWidth));
                 WriteLine(PrintCenteredTitle("\t(0) - to Exit       ", StandardWidth));
-                
+
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
 
@@ -89,7 +101,7 @@ public class Utility
                 WriteLine(PrintCenteredTitle("", StandardWidth));
                 WriteLine(PrintCenteredTitle("Type\t(1) - Mark as borrowed  ", StandardWidth));
                 WriteLine(PrintCenteredTitle("\t(0) - to Exit       ", StandardWidth));
-                
+
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
 
@@ -100,16 +112,18 @@ public class Utility
                 WriteLine(PrintCenteredTitle("", StandardWidth));
                 WriteLine(PrintCenteredTitle("Type\t(1) - Mark as returned  ", StandardWidth));
                 WriteLine(PrintCenteredTitle("\t(0) - to Exit       ", StandardWidth));
-                
+
                 DisplayTitle("", "bottom", StandardWidth);
                 break;
-                
+
             default:
                 break;
         }
     }
 
-
+    /// <summary>Gets user input with appropriate prompt</summary>
+    /// <param name="inputType">Type of input requested</param>
+    /// <returns>Trimmed user input string</returns>
     public static string GetInput(string inputType)
     {
         switch (inputType)
@@ -125,10 +139,13 @@ public class Utility
             default:
                 break;
         }
+
         return ReadLine()?.Trim() ?? "";
     }
 
-
+    /// <summary>Displays error messages with colored formatting</summary>
+    /// <param name="errorType">Type of error to display</param>
+    /// <param name="context">Context information for the error</param>
     public static void DisplayErrorOperation(string errorType, string context = null)
     {
         switch (errorType)
@@ -152,10 +169,6 @@ public class Utility
                 break;
         }
     }
-
-
-
-
 
 
     /// <summary>Displays success message for book operations</summary>
