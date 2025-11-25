@@ -47,6 +47,4 @@ internal class HardCover : IBook
     {
         return Location;
     }
-
-
 }

@@ -20,7 +20,7 @@ internal class Program
 
         Clear();
         Collection.SeedCatalogue();
-        
+
         while (isDisplayingMenu)
         {
             DisplayMenu(MenuTypes.MainMenu);
@@ -28,12 +28,12 @@ internal class Program
 
             switch (choice)
             {
-                case BookProcesses.MainMenuAdd:  
+                case BookProcesses.MainMenuAdd:
                     AddNewBook(Collection.Catalogue);
                     isDisplayingMenu = true;
                     break;
 
-                case BookProcesses.MainMenuSearch: 
+                case BookProcesses.MainMenuSearch:
                     Search(false, BookActions.Find);
                     isDisplayingMenu = true;
                     break;
@@ -43,7 +43,7 @@ internal class Program
                     isDisplayingMenu = true;
                     break;
 
-                case BookProcesses.MainMenuReturn: 
+                case BookProcesses.MainMenuReturn:
                     Return();
                     isDisplayingMenu = true;
                     break;

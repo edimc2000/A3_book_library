@@ -36,10 +36,9 @@ internal class LibraryManager
 
         public const string MainMenuExit = "0";
         public const string MainMenuAdd = "1";
-        public const string MainMenuSearch = "2";  
+        public const string MainMenuSearch = "2";
         public const string MainMenuBorrow = "3";
         public const string MainMenuReturn = "4";
-
     }
 
     /// <summary>Adds new books to the library catalogue</summary>
@@ -135,8 +134,10 @@ internal class LibraryManager
     /// <returns>List of matching books</returns>
     public static List<IBook> Search(bool isSubRoutine, string action)
     {
-        if (!isSubRoutine) DisplayTitle(BookProcesses.SearchTitle, "all", 
-            StandardWidth);
+        if (!isSubRoutine)
+            DisplayTitle(BookProcesses.SearchTitle,
+                "all",
+                StandardWidth);
 
         string? userInput = GetInput(InputTypes.Title).ToLower();
 

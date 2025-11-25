@@ -1,6 +1,5 @@
 ﻿namespace Library.support;
 
-
 /// <summary>Provides text formatting utilities for console display</summary>
 /// <remarks>
 /// <para>Author: Eddie C.</para>
@@ -22,7 +21,7 @@ internal class Formatting
 
         string top = cornerLeftTop + lineBoxTop + cornerRightTop;
         string bottom = cornerLeftBottom + lineBoxTop + cornerRightBottom;
-        
+
         switch (cover)
         {
             case "all":
@@ -41,7 +40,6 @@ internal class Formatting
                 WriteLine(bottom);
                 break;
         }
-
     }
 
 
