@@ -8,7 +8,7 @@ Simple C# console application for managing a small book library (AudioBook, Eboo
 
 **Language:** C#
 
-## File and Folder Structure
+## Files and Folders Structure
 ![Main Menu](screenshots/filefolder.png)
 - `AudioBook.cs`, `Ebook.cs`, `HardCover.cs`, `IBook.cs` — book model types
 - `Program.cs` — console program entry point
