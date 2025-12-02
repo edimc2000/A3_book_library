@@ -54,7 +54,9 @@ Support files (under `support/`):
 
 ## Requirements
 
-- .NET SDK (compatible with the target framework used by the project)
+- .NET SDK: Version 10.0.100
+- No external libraries
+- ANSI-capable terminal (optional, for colors)
 
 ## Build (PowerShell `pwsh`)
 
@@ -107,11 +109,6 @@ Errors and retry
 
 
 
-## Requirements
-
-- .NET SDK: Version 10.0.100
-- No external libraries
-- ANSI-capable terminal (optional, for colors)
 
 ## Contact
 
